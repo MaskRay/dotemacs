@@ -1,0 +1,2 @@
+for (${1:vector}<${2:int}>::const_iterator ${3:it} = ${4:a}.begin(); $3 != $4.end(); $3++)
+    $0
