@@ -390,6 +390,20 @@
     (prefix . ac-css-prefix)
     (requires . 0)))
 
+;; slime
+(ac-define-source slime
+  '((depends slime)
+    (candidates . (car (slime-simple-completions ac-prefix)))
+    (symbol . "s")
+    (cache)))
+
+;; ghc-mod
+(ac-define-source ghc-mod
+  '((depends ghc)
+    (candidates . (ghc-select-completion-symbol))
+    (symbol . "s")
+    (cache)))
+
 
 
 ;;;; Not maintained sources
@@ -407,9 +421,8 @@
 
 (defun ac-ropemacs-setup ()
   (ac-ropemacs-require)
-  (setq ac-sources (append (list 'ac-source-ropemacs) ac-sources))
-  ;(setq ac-omni-completion-sources '(("\\." ac-source-ropemacs))))
-  )
+  ;(setq ac-sources (append (list 'ac-source-ropemacs) ac-sources))
+  (setq ac-omni-completion-sources '(("\\." ac-source-ropemacs))))
 
 (defun ac-ropemacs-initialize ()
   (autoload 'pymacs-apply "pymacs")
@@ -418,7 +431,7 @@
   (autoload 'pymacs-exec "pymacs" nil t)
   (autoload 'pymacs-load "pymacs" nil t)
   (add-hook 'python-mode-hook 'ac-ropemacs-setup)
-  )
+  t)
 
 (defvar ac-ropemacs-completions-cache nil)
 (defvar ac-source-ropemacs
@@ -467,7 +480,8 @@
   (add-to-list 'ac-ignores "end"))
 
 (defun ac-css-mode-setup ()
-  (setq ac-sources (append '(ac-source-css-property) ac-sources)))
+  ;(setq ac-sources (append '(ac-source-css-property) ac-sources))
+  )
 
 (defun ac-config-default ()
   (setq-default ac-sources '(ac-source-abbrev ac-source-dictionary ac-source-words-in-same-mode-buffers))
@@ -476,7 +490,6 @@
   (add-hook 'ruby-mode-hook 'ac-ruby-mode-setup)
   (add-hook 'css-mode-hook 'ac-css-mode-setup)
   (add-hook 'auto-complete-mode-hook 'ac-common-setup)
-  (add-hook 'python-mode-hook 'ac-ropemacs-setup)
   (global-auto-complete-mode t))
 
 (provide 'auto-complete-config)

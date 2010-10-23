@@ -1,8 +1,8 @@
-(progn (cd "~/.emacs.d") (normal-top-level-add-subdirs-to-load-path) (cd "~"))
-(add-to-list 'load-path "~/.emacs.d")
+(progn (cd "~/.emacs.d") (normal-top-level-add-subdirs-to-load-path) (cd "~") (add-to-list 'load-path "~/.emacs.d"))
 (server-start)
 (prefer-coding-system 'utf-8)
 
+;;{{{ font
 (when (not (eq (window-system) nil))
   (defun en-zh-font-existsp (font)  
     (if (null (x-list-fonts font))  
@@ -50,8 +50,8 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
   (global-set-key (kbd "<C-mouse-5>") (lambda () (interactive) (text-scale-increase 1)))
 
   )
-
-;;;; safe-load
+;;}}}
+;;{{{ utils
 (defun safe-load (file &optional noerror nomessage nosuffix)
   "Load a file.  If error when loading, report back, wait for
    a key stroke then continue on"
@@ -64,7 +64,6 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
        (sleep-for 1)
        nil))))
 
-;;;; goto-char
 (defun wy-go-to-char (n char)
   "Move forward to Nth occurence of CHAR.
 Typing `wy-go-to-char-key' again will move forwad to the next Nth
@@ -75,14 +74,31 @@ occurence of CHAR."
 		     char)
     (search-forward (string char) nil nil n))
   (setq unread-command-events (list last-input-event)))
-(define-key global-map (kbd "C-c f") 'wy-go-to-char)
 
+(defun open-current-file-as-admin ()
+  "Open the current buffer as unix root.
+This command works on unixes only."
+  (interactive)
+  (when buffer-file-name
+    (find-alternate-file
+     (concat "/sudo:root@localhost:"
+           buffer-file-name))))
 
+(defun window-half-height ()
+  (max 1 (/ (1- (window-height (selected-window))) 2)))
+(defun scroll-up-half ()
+  (interactive)
+  (scroll-up (window-half-height)))
+(defun scroll-down-half ()         
+  (interactive)                    
+  (scroll-down (window-half-height)))
+;;}}}
+;;{{{ miscellaneous
 (require 'ido) (ido-mode 1)
 (require 'bookmark+)
 (show-paren-mode 1) (setq show-paren-style 'parenthesis)
 (require 'autopair) (autopair-global-mode 1) (add-hook 'sldb-mode-hook #' (lambda () (setq autopair-dont-activate t)))
-;; (require 'pinbar) (global-set-key (kbd "M-=") 'pinbar-add) (pinbar-mode 1)
+(require 'pinbar) (global-set-key (kbd "M-=") 'pinbar-add) (pinbar-mode 1)
 (setq elscreen-prefix-key (kbd "C-l")) (require 'elscreen)
 (require 'cursor-chg) (change-cursor-mode 1) (toggle-cursor-type-when-idle 1) (setq curchg-default-cursor-color "white")
 (require 'color-moccur) (require 'moccur-edit) (defalias 'occur 'occur-by-moccur)
@@ -91,7 +107,6 @@ occurence of CHAR."
 (require 'follow-mouse) (turn-on-follow-mouse)
 (require 'one-key) (require 'one-key-default) (one-key-default-setup-keys)
 
-;;;; highlight-parentheses
 (require 'highlight-parentheses)
 (define-globalized-minor-mode real-global-highlight-parentheses-mode
   highlight-parentheses-mode (lambda ()
@@ -100,15 +115,12 @@ occurence of CHAR."
                        ))
 (real-global-highlight-parentheses-mode 1)
 
-;;;; highlight-symbol
 (require 'highlight-symbol)
 (global-set-key (kbd "C-c h") 'highlight-symbol-at-point)
 (global-set-key (kbd "C-c p") 'highlight-symbol-prev)
 (global-set-key (kbd "C-c n") 'highlight-symbol-next)
 (global-set-key (kbd "C-c M-r") 'highlight-symbol-remove-all)
 (global-set-key (kbd "C-c r") 'highlight-symbol-query-replace)
-
-;;;; miscellaneous
 
 (setq-default truncate-partial-width-windows 15)
 (recentf-mode 1)
@@ -124,31 +136,9 @@ occurence of CHAR."
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
-
 (auto-image-file-mode 1)
-
-(defun open-current-file-as-admin ()
-  "Open the current buffer as unix root.
-This command works on unixes only."
-  (interactive)
-  (when buffer-file-name
-    (find-alternate-file
-     (concat "/sudo:root@localhost:"
-           buffer-file-name))))
-(global-set-key (kbd "C-c C-r") 'open-current-file-as-admin)
-
-(defun window-half-height ()
-  (max 1 (/ (1- (window-height (selected-window))) 2)))
-(defun scroll-up-half ()
-  (interactive)
-  (scroll-up (window-half-height)))
-(defun scroll-down-half ()         
-  (interactive)                    
-  (scroll-down (window-half-height)))
-(global-set-key (kbd "M-n") 'scroll-up-half)
-(global-set-key (kbd "M-p") 'scroll-down-half)
-
-;;;; key bindings
+;;}}}
+;;{{{ key bindings
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 (global-set-key (kbd "C-4") 'kill-this-buffer)
 (global-set-key (kbd "C-3") 'split-window-horizontally)
@@ -156,6 +146,10 @@ This command works on unixes only."
 (global-set-key (kbd "C-1") 'delete-other-windows)
 (global-set-key (kbd "M-0") 'delete-window)
 (global-set-key (kbd "M-s") 'other-window)
+(global-set-key (kbd "M-n") 'scroll-up-half)
+(global-set-key (kbd "M-p") 'scroll-down-half)
+(global-set-key (kbd "C-c C-r") 'open-current-file-as-admin)
+(global-set-key (kbd "C-c f") 'wy-go-to-char)
 (add-hook 'eshell-mode-hook
 	  '(lambda ()
 	     (define-key eshell-mode-map (kbd "M-s") 'other-window)))
@@ -166,14 +160,11 @@ This command works on unixes only."
 
 (require 'whole-line-or-region)
 (whole-line-or-region-mode 1)
-
-
-
-;;;; hippie-expand
+;;}}}
+;;{{{ completion
 (setq hippie-expand-try-functions-list '(try-expand-line))
 (global-set-key (kbd "M-/") 'hippie-expand)
 
-;;;; auto-complete
 (require 'auto-complete)
 (require 'auto-complete-config)
 (ac-config-default)
@@ -190,7 +181,6 @@ This command works on unixes only."
                        ))
 (real-global-auto-complete-mode 1)
 
-;;;; semantic
 (require 'cedet)
 (mapc (lambda (dir)
  	(semantic-add-system-include dir 'c++-mode)
@@ -198,15 +188,13 @@ This command works on unixes only."
       '("/usr/include/gtk-2.0" "/usr/include/gtk-2.0/gtk")
       )
 
-;;;; gccsense
-;; (require 'gccsense)
-
-;;;; yasnippet
 (require 'yasnippet)
 (yas/initialize)
 (yas/load-directory "~/.emacs.d/yasnippet/snippets")
-
-
+;;}}}
+;;{{{ clients for irc, twitter, rss reader, etc.
+;;;; w3m
+(setq w3m-default-display-inline-images t)
 
 ;;;; erc
 (safe-load "~/.ercrc.el")
@@ -222,7 +210,20 @@ This command works on unixes only."
 ;;;; newsticker
 (safe-load "~/.newsticker.el")
 
-;;;; org
+;;;; sdcv
+(require 'sdcv-mode)
+(global-set-key (kbd "C-c d") 'sdcv-search)
+
+;;;; ispell
+(setq ispell-local-dictionary "american")
+
+;;;; imaxima
+(autoload 'imaxima "imaxima" nil t)
+(setq imaxima-fnt-size "huge")
+(setq imaxima-max-scale 0.75)
+(setq imaxima-pt-size 12)
+;;}}}
+;;{{{ org mode
 (setq org-agenda-files '("~/org/home.org" "~/org/work.org"))
 (global-set-key (kbd "C-c m r") 'org-remember)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
@@ -233,15 +234,9 @@ This command works on unixes only."
 (setq org-default-notes-file "~/org/todo.org")
 (org-remember-insinuate)
 (setq org-remember-templates (quote (("todo" ?t "* TODO %?\nCREATED: %U" nil nil nil))))
+;;}}}
+;;{{{ dired
 
-;;;; ispell
-(setq ispell-local-dictionary "american")
-
-;;;; sdcv
-(require 'sdcv-mode)
-(global-set-key (kbd "C-c d") 'sdcv-search)
-
-;;;; dired
 ;(require 'dired+)
 (setq dired-dwim-target t)
 (setq dired-recursive-copies 'always)
@@ -261,8 +256,8 @@ This command works on unixes only."
                   (interactive)
                   (if (buffer-file-name)
                       (dired default-directory))))
-
-;;;; auctex
+;;}}}
+;;{{{ auctex
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)
 (setq-default TeX-master nil)
@@ -273,15 +268,13 @@ This command works on unixes only."
 	    (setq TeX-save-query nil)
 	    (setq TeX-show-compilation t)
 	    ))
-
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-
-
-;;;; gud
+;;}}}
+;;{{{ gud
 (setq gdb-many-windows t)
 (gud-tooltip-mode 1)
-
-;;;; ibuffer
+;;}}}
+;;{{{ ibuffer
 (defalias 'list-buffers 'ibuffer)
 (setq ibuffer-saved-filter-groups
       (quote (("default"
@@ -308,10 +301,8 @@ This command works on unixes only."
           (lambda ()
             (ibuffer-switch-to-saved-filter-groups "default")))
 
-;;;; w3m
-(setq w3m-default-display-inline-images t)
-
-;;;; mew
+;;}}}
+;;{{{ mew
 (autoload 'mew "mew" nil t)
 (autoload 'mew-send "mew" nil t)
 (if (boundp 'read-mail-command)
@@ -326,20 +317,12 @@ This command works on unixes only."
        'mew-draft-send-message
        'mew-draft-kill
        'mew-send-hook))
-
-;;;; imaxima
-(autoload 'imaxima "imaxima" nil t)
-(setq imaxima-fnt-size "huge")
-(setq imaxima-max-scale 0.75)
-(setq imaxima-pt-size 12)
-
-;;;; doxymacs
+;;}}}
+;;{{{ doxymacs
 (require 'doxymacs)
 (add-hook 'c-mode-common-hook 'doxymacs-mode)
-
-
-
-;;;; lisp
+;;}}}
+;;{{{ lisp
 (add-hook 'lisp-interaction-mode-hook '(lambda () (eldoc-mode 1) (auto-complete-mode 1)))
 (add-hook 'emacs-lisp-mode-hook '(lambda () (eldoc-mode 1) (auto-complete-mode 1)))
 (add-hook 'slime-mode '(lambda() (eldoc-mode 1) (auto-complete-mode 1)))
@@ -352,26 +335,20 @@ This command works on unixes only."
 (setq inferior-lisp-program "/usr/bin/sbcl")
 (require 'slime-autoloads)
 (slime-setup)
-
-;;;; python
+;;}}}
+;;{{{ python
 (add-hook 'python-mode-hook '(lambda() (eldoc-mode 1)))
-;; (ac-ropemacs-initialize)
-;; (pymacs-load "ropemacs" "rope-")
-;; (add-hook 'python-mode-hook
-;; 	  '(lambda ()
-;; 	     (add-to-list 'ac-sources 'ac-source-ropemacs)))
-
-;;;; perl
+;;}}}
+;;{{{ perl
 (defalias 'perl-mode 'cperl-mode)
-(defun my-cperl-mode-common-hook ()
-  (cperl-set-style "PerlStyle")
-  ;; (setq cperl-auto-newline t)
-  (setq cperl-electric-paren t)
-  (setq cperl-electric-keywords t)
-)
-(add-hook 'cperl-mode-hook 'my-cperl-mode-common-hook)
-
-;;;; cc
+(autoload 'run-perl "inf-perl" "Start perl interactive shell" t)
+(add-hook 'cperl-mode-hook (lambda ()
+			     (cperl-set-style "PerlStyle")
+			     (setq cperl-electric-paren t)
+			     (setq cperl-electric-keywords t)
+			     ))
+;;}}}
+;;{{{ cc mode
 (defun my-c-mode-common-hook ()
   (c-set-style "k&r")
   (setq tab-width 4 indent-tabs-mode nil c-basic-offset 4)
@@ -396,32 +373,12 @@ This command works on unixes only."
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
-;;;; cscope
 (autoload 'xcscope "xcscope" nil t)
 (setq cscope-do-not-update-database t)
-
-;;;; color-theme (ir-black)
+;;}}}
+;;{{{ color-theme (ir-black by David Zhou, http://blog.infinitered.com/entries/show/8)
 (require 'color-theme)
 (color-theme-initialize)
-
-;; IR_Black Color Theme for Emacs.
-;;
-;; David Zhou
-;;
-;; The IR_Black theme is originally from:
-;;
-;; http://blog.infinitered.com/entries/show/8
-;;
-;; This theme needs color-theme.
-;;
-;; To use, put this in your init files:
-;;
-;; (require 'color-theme)
-;; (color-theme-initialize)
-;; (load-file "path/to/color-theme-irblack.el")
-;; (color-theme-irblack)
-
-
 (defun color-theme-irblack ()
 (interactive)
 (color-theme-install
@@ -495,12 +452,7 @@ This command works on unixes only."
 )))
 
 (color-theme-irblack)
-(put 'scroll-left 'disabled nil)
-(put 'set-goal-column 'disabled nil)
-(put 'dired-find-alternate-file 'disabled nil)
-(put 'downcase-region 'disabled nil)
-(put 'narrow-to-page 'disabled nil)
-(put 'narrow-to-region 'disabled nil)
+;;}}}
 
 
 (custom-set-variables
@@ -508,6 +460,7 @@ This command works on unixes only."
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(disabled-command-function nil)
  '(default-buffer-file-coding-system 'utf-8)
  '(system-time-locale "C")
  '(scroll-margin 5)
@@ -519,6 +472,7 @@ This command works on unixes only."
  '(inhibit-startup-message t)
  '(initial-scratch-message "")
  '(x-select-enable-clipboard t)
+ '(x-select-enable-primary nil)
  )
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
