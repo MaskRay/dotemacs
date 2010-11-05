@@ -1,6 +1,6 @@
 (setq elscreen-prefix-key (kbd "C-l"))
 
-(mapc 'require '(uniquify ido bookmark+ autopair pinbar cursor-chg color-moccur moccur-edit lazy-search auto-install follow-mouse one-key one-key-default second-sel paste2 sdcv-mode highlight-symbol w3m-load whole-line-or-region))
+(mapc 'require '(elscreen uniquify ido bookmark+ autopair pinbar cursor-chg color-moccur moccur-edit lazy-search auto-install follow-mouse one-key one-key-default second-sel paste2 sdcv-mode highlight-symbol w3m-load whole-line-or-region))
 (autoload 'jabber-connect "jabber"
   "connect to the jabber server and start a jabber xml stream" t)
 (autoload 'twittering-mode "twittering-mode" nil t)
