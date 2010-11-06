@@ -225,7 +225,7 @@
 ;;
 
 ;;; Require:
-(require 'term)
+;; (require 'term)
 (require 'cl)
 (require 'advice)
 

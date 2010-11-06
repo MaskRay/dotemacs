@@ -1,4 +1,3 @@
-(setq-default truncate-partial-width-windows 15)
 (recentf-mode 1)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (global-linum-mode 1)
@@ -13,7 +12,7 @@
 
 (setq major-mode 'text-mode
       enable-recursive-minibuffers t
-      scroll-margin 5
+      scroll-margin 0
       x-select-enable-clipboard t
       x-select-enable-primary nil
       system-time-locale "C"
@@ -23,6 +22,8 @@
       backup-directory-alist '(("" . "/var/tmp"))
       buffer-file-coding-system 'utf-8
       )
+(setq-default kill-whole-line t
+	      truncate-partial-width-windows 15)
 
 (custom-set-faces
   ;; custom-set-faces was added by Custom.

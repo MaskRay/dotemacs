@@ -1,6 +1,7 @@
 (setq elscreen-prefix-key (kbd "C-l"))
 
-(mapc 'require '(elscreen uniquify ido bookmark+ autopair pinbar cursor-chg color-moccur moccur-edit lazy-search auto-install follow-mouse one-key one-key-default second-sel paste2 sdcv-mode highlight-symbol w3m-load whole-line-or-region))
+(mapc 'require '(elscreen uniquify ido bookmark+ autopair pinbar cursor-chg color-moccur moccur-edit lazy-search auto-install follow-mouse second-sel paste2 sdcv-mode highlight-symbol w3m-load whole-line-or-region multi-term eval-after-load ahei-misc emaci))
+
 (autoload 'jabber-connect "jabber"
   "connect to the jabber server and start a jabber xml stream" t)
 (autoload 'twittering-mode "twittering-mode" nil t)
@@ -30,7 +31,7 @@
 
 (turn-on-follow-mouse)
 
-(one-key-default-setup-keys)
+;(one-key-default-setup-keys)
 
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
@@ -109,6 +110,9 @@
 	      (lambda () (interactive) (find-alternate-file "..")))
 					; was dired-up-directory
 	    ))
+
+
+(setq term-unbind-key-list '("C-x" "C-l" "<ESC>"))
 
 
 (provide 'plugins)
