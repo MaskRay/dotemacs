@@ -47,4 +47,11 @@
  '(ac-selection-face ((t (:background "blue" :foreground "white")))))
 
 
+(require 'color-theme)
+(require 'color-theme-zenburn)
+(color-theme-initialize)
+(setq zenburn-bg "#000000")
+(color-theme-zenburn)
+
+
 (provide 'settings)
