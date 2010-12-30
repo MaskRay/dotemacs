@@ -1,6 +1,6 @@
 (setq elscreen-prefix-key (kbd "C-l"))
 
-(mapc 'require '(elscreen uniquify ido bookmark+ autopair pinbar cursor-chg color-moccur moccur-edit lazy-search auto-install second-sel paste2 sdcv-mode highlight-symbol w3m-load whole-line-or-region multi-term browse-kill-ring+))
+(mapc 'require '(elscreen uniquify paredit ido bookmark+ autopair cursor-chg color-moccur moccur-edit lazy-search auto-install second-sel paste2 highlight-symbol w3m-load whole-line-or-region multi-term browse-kill-ring+))
 
 (autoload 'jabber-connect "jabber"
   "connect to the jabber server and start a jabber xml stream" t)
@@ -16,8 +16,8 @@
 (autopair-global-mode 1)
 (add-hook 'sldb-mode-hook #' (lambda () (setq autopair-dont-activate t)))
 
-(global-set-key (kbd "M-=") 'pinbar-add)
-(pinbar-mode 1)
+;; (global-set-key (kbd "M-=") 'pinbar-add)
+;; (pinbar-mode 1)
 
 (change-cursor-mode 1)
 (toggle-cursor-type-when-idle 1)

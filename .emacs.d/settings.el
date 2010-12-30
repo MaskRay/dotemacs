@@ -53,5 +53,10 @@
 (setq zenburn-bg "#000000")
 (color-theme-zenburn)
 
+(when (not (setq browse-url-generic-program (executable-find "firefox3")))
+  (setq browse-url-generic-program (executable-find "firefox"))
+  )
+(setq browse-url-browser-function 'browse-url-generic)
+
 
 (provide 'settings)

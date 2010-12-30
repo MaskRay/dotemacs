@@ -127,10 +127,6 @@ g++ -Wall编译"
 
 
 ;; lisp
-(add-hook 'lisp-interaction-mode-hook '(lambda () (eldoc-mode 1) (auto-complete-mode 1)))
-(add-hook 'emacs-lisp-mode-hook '(lambda () (eldoc-mode 1) (auto-complete-mode 1)))
-(add-hook 'slime-mode '(lambda() (eldoc-mode 1) (auto-complete-mode 1)))
-(define-key lisp-mode-map "\C-m" 'reindent-then-newline-and-indent)
 (defalias 'eb 'eval-buffer)
 (defalias 'er 'eval-region)
 (defalias 'ee 'eval-expression)
@@ -138,8 +134,25 @@ g++ -Wall编译"
 (defalias 'lim 'lisp-interaction-mode)
 (defalias 'eis 'elisp-index-search)
 (setq inferior-lisp-program "/usr/bin/sbcl")
+(setq scheme-program-name "guile")
 (require 'slime-autoloads)
-(slime-setup)
+(add-hook 'lisp-mode-hook (lambda () (slime-setup)))
+
+(defun my-lisp-mode-hook ()
+  (setq autopair-dont-activate t)
+  (enable-paredit-mode)
+  (turn-on-eldoc-mode)
+  (eldoc-add-command
+   'paredit-backward-delete
+   'paredit-close-round)
+  (local-set-key "\C-m" 'reindent-then-newline-and-indent)
+  )
+
+(add-hook 'lisp-mode-hook 'my-lisp-mode-hook)
+(add-hook 'scheme-mode-hook 'my-lisp-mode-hook)
+(add-hook 'lisp-interaction-mode-hook 'my-lisp-mode-hook)
+(add-hook 'emacs-lisp-mode-hook 'my-lisp-mode-hook)
+(add-hook 'slime-mode 'my-lisp-mode-hook)
 
 
 ;; auctex
