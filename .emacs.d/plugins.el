@@ -1,6 +1,6 @@
 (setq elscreen-prefix-key (kbd "C-l"))
 
-(mapc 'require '(elscreen uniquify paredit ido bookmark+ autopair cursor-chg color-moccur moccur-edit lazy-search auto-install second-sel paste2 highlight-symbol w3m-load whole-line-or-region multi-term browse-kill-ring+))
+(mapc 'require '(dired+ elscreen uniquify paredit ido bookmark+ autopair cursor-chg color-moccur moccur-edit lazy-search auto-install second-sel paste2 highlight-symbol w3m-load whole-line-or-region multi-term browse-kill-ring+))
 
 (autoload 'jabber-connect "jabber"
   "connect to the jabber server and start a jabber xml stream" t)
@@ -100,8 +100,6 @@
 (setq dired-recursive-deletes 'top)
 (add-hook 'dired-mode-hook
 	  (lambda ()
-	    (define-key dired-mode-map (kbd "<return>")
-	      'dired-find-alternate-file) ; was dired-advertised-find-file
 	    (define-key dired-mode-map (kbd "^")
 	      (lambda () (interactive) (find-alternate-file "..")))
 					; was dired-up-directory

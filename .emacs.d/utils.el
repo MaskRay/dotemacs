@@ -34,5 +34,22 @@ This command works on unixes only."
      (concat "/sudo:root@localhost:"
            buffer-file-name))))
 
+(defun kill-orphan-buffers ()
+  (interactive)
+  (dolist (buffer (buffer-list))
+    (let ((fname (buffer-file-name buffer)))
+      (when (and fname (not (file-exists-p fname)) (not (buffer-modified-p buffer)))
+        (message (concat "Killing " fname))
+        (kill-buffer buffer)))))
+
+(defun revert-unmodified-buffers ()
+  (interactive)
+  (dolist (buffer (buffer-list))
+    (let ((fname (buffer-file-name buffer)))
+      (when (and fname (file-exists-p fname) (not (buffer-modified-p buffer))
+                 (not (verify-visited-file-modtime buffer)))
+        (message (concat "Reverting " fname))
+        (with-current-buffer buffer
+          (revert-buffer t t))))))
 
 (provide 'utils)
