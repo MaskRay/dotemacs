@@ -5,13 +5,13 @@
 
 
 ;; semantic
-;(require 'cedet)
-;(require 'semantic)
-;(mapc (lambda (dir)
-; 	(semantic-add-system-include dir 'c++-mode)
-; 	(semantic-add-system-include dir 'c-mode))
-;      '("/usr/include/gtk-2.0" "/usr/include/gtk-2.0/gtk")
-;      )
+(require 'cedet)
+(require 'semantic)
+(mapc (lambda (dir)
+	(semantic-add-system-include dir 'c++-mode)
+	(semantic-add-system-include dir 'c-mode))
+     '("/usr/include/gtk-2.0" "/usr/include/gtk-2.0/gtk")
+     )
 
 
 ;; hippie-expand
@@ -19,7 +19,7 @@
 (global-set-key (kbd "M-/") 'hippie-expand)
 
 
-;;;; auto-complete
+;; auto-complete
 (require 'auto-complete)
 (require 'auto-complete-config)
 (ac-config-default)

@@ -1,6 +1,8 @@
 (setq elscreen-prefix-key (kbd "C-l"))
 
-(mapc 'require '(dired+ elscreen uniquify paredit ido bookmark+ autopair cursor-chg color-moccur moccur-edit lazy-search auto-install second-sel paste2 highlight-symbol w3m-load whole-line-or-region multi-term browse-kill-ring+))
+(mapc 'require '(dired+ elscreen window-number uniquify paredit ido bookmark+ autopair cursor-chg color-moccur moccur-edit lazy-search auto-install second-sel paste2 highlight-symbol w3m-load whole-line-or-region browse-kill-ring+ menu-bar+))
+
+(window-number-meta-mode 1)
 
 (autoload 'jabber-connect "jabber"
   "connect to the jabber server and start a jabber xml stream" t)
@@ -27,7 +29,7 @@
 
 (define-key isearch-mode-map (kbd "M-l") 'isearch-to-lazy-search)
 
-(setq auto-install-directory "~/.emacs.d/")
+(setq auto-install-directory "~/.emacs.d/site-lisp")
 
 ;(one-key-default-setup-keys)
 

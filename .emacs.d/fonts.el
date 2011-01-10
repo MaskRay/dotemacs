@@ -40,12 +40,11 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
 			    charset
 			    zh-font))))
     (en-zh-set-font
-     '("Envy Code R VS" "Consolas" "DejaVu Sans Mono" "Monospace" "Courier New") ":pixelsize=22"
+     '("Bitstream Vera Sans Mono" "Consolas" "DejaVu Sans Mono" "Monospace" "Courier New") ":pixelsize=22"
      '("DejaVu Sans YuanTi Mono" "文泉驿等宽微米黑" "黑体" "新宋体" "宋体"))
     (global-set-key (kbd "<C-mouse-4>") (lambda () (interactive) (text-scale-decrease 1)))
     (global-set-key (kbd "<C-mouse-5>") (lambda () (interactive) (text-scale-increase 1)))
-
     )
 )
 
-  (provide 'fonts)
+(provide 'fonts)
