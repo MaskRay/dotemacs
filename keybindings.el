@@ -22,4 +22,6 @@
 
 (global-set-key (kbd "C-M-y") 'secondary-dwim)
 
+(global-set-key (kbd "C-c k") 'kill-ring-search)
+
 (provide 'keybindings)

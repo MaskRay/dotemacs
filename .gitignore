@@ -1,9 +1,9 @@
 *~
 *.elc
 *.dat
+loaddefs.el
+elpa
 auto-save-list
-newsticker
-.org-id-locations
 tramp
 imaxima
 doxymacs

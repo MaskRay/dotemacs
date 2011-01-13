@@ -16,3 +16,6 @@
  '(diredp-rare-priv ((t (:foreground "Orchid"))))
  '(diredp-read-priv ((t nil)))
  '(diredp-write-priv ((t nil))))
+
+(put 'dired-find-alternate-file 'disabled nil)
+(put 'set-goal-column 'disabled nil)

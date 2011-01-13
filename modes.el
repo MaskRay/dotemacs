@@ -1,3 +1,10 @@
+;; eshell
+(defun eshell/clear ()
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)))
+
+
 ;; yasnippet
 (require 'yasnippet)
 (yas/initialize)

@@ -1,6 +1,7 @@
 (setq elscreen-prefix-key (kbd "C-l"))
 
-(mapc 'require '(dired+ elscreen window-number uniquify paredit ido bookmark+ autopair cursor-chg color-moccur moccur-edit lazy-search auto-install second-sel paste2 highlight-symbol w3m-load whole-line-or-region browse-kill-ring+ menu-bar+))
+(mapc 'require '(dired+ elscreen window-number paredit bookmark+ autopair cursor-chg color-moccur moccur-edit lazy-search auto-install second-sel paste2 highlight-symbol w3m-load whole-line-or-region browse-kill-ring+ kill-ring-search menu-bar+))
+(require 'loaddefs)
 
 (window-number-meta-mode 1)
 
