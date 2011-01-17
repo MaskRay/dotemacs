@@ -4,3 +4,5 @@
 	     ))
   (set-register (car r) (cadr r))
   )
+
+(provide 'registers)
