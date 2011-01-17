@@ -3,6 +3,8 @@
 (mapc 'require '(dired+ elscreen window-number paredit bookmark+ autopair cursor-chg color-moccur moccur-edit lazy-search auto-install second-sel paste2 highlight-symbol w3m-load whole-line-or-region browse-kill-ring+ kill-ring-search menu-bar+))
 (require 'loaddefs)
 
+(smex-initialize)
+
 (window-number-meta-mode 1)
 
 (autoload 'jabber-connect "jabber"

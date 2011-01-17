@@ -15,7 +15,8 @@
                  kill-ring-search
                  newsticker
                  org
-                 paredit))
+                 paredit
+		 smex))
 
 (defun elpa-install ()
   "Install all starter-kit packages that aren't installed."
@@ -41,7 +42,9 @@
         (update-directory-autoloads autoload-dir))))
   (load autoload-file))
 
-(setq package-archives '(("elpa" . "http://tromey.com/elpa/")))
+(setq package-archives '(
+			 ("gnu" . "http://elpa.gnu.org/packages/")
+			 ("elpa" . "http://tromey.com/elpa/")))
 (package-initialize)
 ;; (elpa-install)
 (regen-autoloads)

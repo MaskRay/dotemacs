@@ -1,3 +1,5 @@
+(global-set-key (kbd "M-x") 'smex)
+
 (global-set-key (kbd "<C-mouse-4>") (lambda () (interactive) (text-scale-decrease 1)))
 (global-set-key (kbd "<C-mouse-5>") (lambda () (interactive) (text-scale-increase 1)))
 
