@@ -17,9 +17,10 @@
 
 (defun erc-init ()
   (interactive)
-  (setq pwfreenode (read-passwd "freenode password: "))
-  (setq pwoftc pwfreenode)
-  (setq pwbitlbee (read-passwd "bitlbee password: "))
+  (when (not pwfreenode)
+      (setq pwfreenode (read-passwd "freenode password: "))
+      (setq pwoftc pwfreenode)
+      (setq pwbitlbee (read-passwd "bitlbee password: ")))
   (erc :server "localhost" :port 6667 :nick "MaskRay" :password pwbitlbee)
   (erc :server "irc.freenode.net" :port 6667 :nick "MaskRay" :password pwfreenode)
   )
@@ -40,7 +41,7 @@
 (erc-autojoin-mode 1)
 (setq erc-autojoin-channels-alist
       '(
-	("freenode.net" "#gentoo-cn" "#shlug" "#haiku-cn" "#emacs" "#ubuntu-cn")
+	("freenode.net" "#gentoo-cn" "#perlchina" "#shlug" "#haiku-cn" "#emacs" "#ubuntu-cn")
 	("oftc.net" "#emacs-cn")
 	))
 
@@ -59,4 +60,4 @@
  (erc-update-modules))
 
 
-(provide 'erc-settings)
+(provide 'erc-config)

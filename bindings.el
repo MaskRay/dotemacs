@@ -1,3 +1,6 @@
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
 (global-set-key (kbd "<C-mouse-4>") (lambda () (interactive) (text-scale-decrease 1)))
 (global-set-key (kbd "<C-mouse-5>") (lambda () (interactive) (text-scale-increase 1)))
 
@@ -18,10 +21,12 @@
 (add-hook 'eshell-mode-hook
 	  '(lambda ()
 	     (define-key eshell-mode-map (kbd "M-s") 'other-window)))
-(global-set-key (kbd "C-;") 'comment-or-uncomment-region)
 
 (global-set-key (kbd "C-M-y") 'secondary-dwim)
-
 (global-set-key (kbd "C-c k") 'kill-ring-search)
+(global-set-key (kbd "C-x C-p") 'ffap)
 
-(provide 'keybindings)
+;; This is a little hacky since VC doesn’t support git add internally
+(eval-after-load 'vc (define-key vc-prefix-map "i" '(lambda () (interactive) (if (not (eq 'Git (vc-backend buffer-file-name))) (vc-register) (shell-command (format "git add %s" buffer-file-name)) (message "Staged changes.")))))
+
+(provide 'bindings)

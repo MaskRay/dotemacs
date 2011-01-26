@@ -162,6 +162,17 @@ g++ -Wall编译"
 ;; (add-hook 'slime-mode 'my-lisp-mode-hook)
 
 
+(defun esk-remove-elc-on-save ()
+  "If you're saving an elisp file, likely the .elc is no longer valid."
+  (make-local-variable 'after-save-hook)
+  (add-hook 'after-save-hook
+            (lambda ()
+              (if (file-exists-p (concat buffer-file-name "c"))
+                  (delete-file (concat buffer-file-name "c"))))))
+
+(add-hook 'emacs-lisp-mode-hook 'esk-remove-elc-on-save)
+
+
 ;; auctex
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)

@@ -4,4 +4,4 @@
 (require 'package)
 (require 'elpa)
 
-(mapc 'require '(settings utils modes plugins keybindings org-mode-settings erc-settings))
+(mapc 'require '(settings utils plugins registers bindings modes org-config erc-config))

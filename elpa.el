@@ -16,7 +16,8 @@
                  kill-ring-search
                  newsticker
                  org
-                 paredit))
+                 paredit
+		 smex))
 
 (defun elpa-install ()
   "Install all starter-kit packages that aren't installed."
