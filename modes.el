@@ -8,7 +8,7 @@
 ;; yasnippet
 (require 'yasnippet)
 (yas/initialize)
-(yas/load-directory "~/.emacs.d/site-lisp/yasnippet/snippets")
+(yas/load-directory (expand-file-name "snippets" dotfiles-dir))
 
 
 ;; semantic
@@ -142,8 +142,8 @@ g++ -Wall编译"
 (defalias 'eis 'elisp-index-search)
 (setq inferior-lisp-program "/usr/bin/sbcl")
 (setq scheme-program-name "guile")
-(require 'slime-autoloads)
-(add-hook 'lisp-mode-hook (lambda () (slime-setup)))
+;; (require 'slime-autoloads)
+;; (add-hook 'lisp-mode-hook (lambda () (slime-setup)))
 
 (defun my-lisp-mode-hook ()
   (setq autopair-dont-activate t)
@@ -159,7 +159,7 @@ g++ -Wall编译"
 (add-hook 'scheme-mode-hook 'my-lisp-mode-hook)
 (add-hook 'lisp-interaction-mode-hook 'my-lisp-mode-hook)
 (add-hook 'emacs-lisp-mode-hook 'my-lisp-mode-hook)
-(add-hook 'slime-mode 'my-lisp-mode-hook)
+;; (add-hook 'slime-mode 'my-lisp-mode-hook)
 
 
 ;; auctex

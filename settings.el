@@ -11,6 +11,7 @@
   (auto-image-file-mode 1)
   (require 'fonts)
   (window-system-font-setting)
+  (set-frame-parameter nil 'fullscreen 'maximized)
   )
 (if (and (fboundp 'daemonp) (daemonp))
     (add-hook 'after-make-frame-functions

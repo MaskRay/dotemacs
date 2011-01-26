@@ -1,3 +1,4 @@
+(require 'cl)
 (setq package-user-dir (expand-file-name "elpa" dotfiles-dir))
 (setq autoload-file (expand-file-name "loaddefs.el" dotfiles-dir))
 (setq vendor-dir (expand-file-name "site-lisp" dotfiles-dir))
@@ -41,7 +42,9 @@
         (update-directory-autoloads autoload-dir))))
   (load autoload-file))
 
-(setq package-archives '(("elpa" . "http://tromey.com/elpa/")))
+(setq package-archives '(
+			 ("gnu" . "http://elpa.gnu.org/packages/")
+			 ("elpa" . "http://tromey.com/elpa/")))
 (package-initialize)
 ;; (elpa-install)
 (regen-autoloads)
