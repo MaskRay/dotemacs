@@ -1,3 +1,6 @@
+;; haskell
+(require 'haskell-config)
+
 ;; eshell
 (defun eshell/clear ()
   (interactive)

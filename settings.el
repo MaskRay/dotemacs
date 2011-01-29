@@ -6,7 +6,6 @@
   (global-font-lock-mode t)
   (tool-bar-mode -1)
   (menu-bar-mode -1)
-  (show-paren-mode 1)
   (scroll-bar-mode -1)
   (auto-image-file-mode 1)
   (require 'fonts)

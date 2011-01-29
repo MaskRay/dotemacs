@@ -1,5 +1,5 @@
 ;;; auto-install.el --- Auto install elisp file
-;; $Id: auto-install.el,v 1.48 2010/05/20 23:29:10 rubikitch Exp $
+;; $Id: auto-install.el,v 1.51 2010/12/10 10:30:58 rubikitch Exp $
 
 ;; Filename: auto-install.el
 ;; Description: Auto install elisp file
@@ -9,7 +9,7 @@
 ;; Copyright (C) 2008, 2009, Andy Stewart, all rights reserved.
 ;; Copyright (C) 2009, rubikitch, all rights reserved.
 ;; Created: 2008-12-11 13:56:50
-;; Version: $Revision: 1.48 $
+;; Version: $Revision: 1.51 $
 ;; URL: http://www.emacswiki.org/emacs/download/auto-install.el
 ;; Keywords: auto-install
 ;; Compatibility: GNU Emacs 22 ~ 23
@@ -24,7 +24,7 @@
 ;;   `url-util', `url-vars'.
 ;;
 
-(defvar auto-install-version "$Id: auto-install.el,v 1.48 2010/05/20 23:29:10 rubikitch Exp $")
+(defvar auto-install-version "$Id: auto-install.el,v 1.51 2010/12/10 10:30:58 rubikitch Exp $")
 ;;; This file is NOT part of GNU Emacs
 
 ;;; License
@@ -130,7 +130,7 @@
 ;;    default = "wget"
 ;;  `auto-install-use-wget'
 ;;    *Use wget instead of `url-retrieve'.
-;;    default = nil
+;;    default = t
 ;;  `auto-install-batch-list'
 ;;    This list contain packages information for batch install.
 ;;    default = nil
@@ -296,6 +296,18 @@
 ;;; Change log:
 ;;
 ;; $Log: auto-install.el,v $
+;; Revision 1.51  2010/12/10 10:30:58  rubikitch
+;; Bugfix when wget is not installed
+;;
+;; replace auto-install-use-wget with (auto-install-use-wget-p)
+;;
+;; Revision 1.50  2010/11/29 15:52:57  rubikitch
+;; compatibility code for emacs21.1
+;;
+;; Revision 1.49  2010/11/10 13:32:37  rubikitch
+;; Use `wget -q -O- --no-check-certificate' if wget is available.
+;; Change default value: `auto-install-use-wget' = t
+;;
 ;; Revision 1.48  2010/05/20 23:29:10  rubikitch
 ;; `auto-install-update-emacswiki-package-name': Check whether network is reachable
 ;;
@@ -605,7 +617,15 @@
 (require 'ffap)
 (eval-when-compile (require 'cl))
 (when (<= emacs-major-version 22)       ;Compatibility with 22.
-  (autoload 'ignore-errors "cl-macs"))
+  (autoload 'ignore-errors "cl-macs")
+  (unless (fboundp 'url-file-nondirectory)
+    (defun url-file-nondirectory (file)
+      "Return the nondirectory part of FILE, for a URL."
+      (cond
+       ((null file) "")
+       ((string-match (eval-when-compile (regexp-quote "?")) file)
+        (file-name-nondirectory (substring file 0 (match-beginning 0))))
+       (t (file-name-nondirectory file))))))
 
 ;;; Code:
 
@@ -677,7 +697,7 @@ Nil means no confirmation is needed."
   :type 'string  
   :group 'auto-install)
 
-(defcustom auto-install-use-wget nil
+(defcustom auto-install-use-wget t
   "*Use wget instead of `url-retrieve'.
 
 It is enabled by default when wget is found."
@@ -1048,6 +1068,9 @@ Note that non-elisp can be installed only via `auto-install-batch'"
       )))
 
 
+(defun auto-install-use-wget-p ()
+  (and auto-install-use-wget
+       (executable-find auto-install-wget-command)))
 (defun auto-install-download (url &optional handle-function)
   "Download elisp file from URL.
 HANDLE-FUNCTION for handle download content,
@@ -1060,7 +1083,9 @@ default is `auto-install-handle-download-content'."
     (message "Create directory %s for install elisp file." auto-install-directory))
   ;; Download.
   (funcall
-   (if auto-install-use-wget 'auto-install-download-by-wget 'auto-install-download-by-url-retrieve)
+   (if (auto-install-use-wget-p)
+       'auto-install-download-by-wget
+     'auto-install-download-by-url-retrieve)
    url handle-function (auto-install-get-buffer url)))
 
 (defun auto-install-download-by-wget (url handle-function download-buffer)
@@ -1070,7 +1095,7 @@ default is `auto-install-handle-download-content'."
     (setq auto-install-download-url url)
     (set-process-sentinel
      (start-process "auto-install-wget" (current-buffer)
-                    auto-install-wget-command "-q" "-O-" url)
+                    auto-install-wget-command "-q" "-O-" "--no-check-certificate" url)
      (lexical-let ((handle-function handle-function))
        (lambda (proc stat)
          (auto-install-download-callback-continue (buffer-name (process-buffer proc))
@@ -1135,7 +1160,7 @@ HANDLE-FUNCTION is function for handle download content."
                 (numberp url-http-end-of-headers))
            (goto-char (1+ url-http-end-of-headers))
          ;; workaround
-         (if auto-install-use-wget
+         (if (auto-install-use-wget-p)
              (goto-char (point-min))
            (search-forward "\n\n" nil t)))
        (decode-coding-region
@@ -1253,7 +1278,7 @@ This command just run when have exist old version."
                ;; Replace file if have exist.
                (auto-install-get-path filename)
                ;; Otherwise, install in directory `auto-install-directory'.
-               (concat auto-install-directory filename)))
+               (expand-file-name filename auto-install-directory)))
         ;; Save file.
         (if (and (file-exists-p file-path)
                  (file-writable-p file-path)

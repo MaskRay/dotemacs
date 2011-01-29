@@ -1,10 +1,16 @@
 (require 'alist)
 (setq elscreen-prefix-key (kbd "C-l"))
 
-(mapc 'require '(dired+ elscreen window-number paredit bookmark+ autopair cursor-chg color-moccur moccur-edit lazy-search auto-install second-sel paste2 highlight-symbol w3m-load whole-line-or-region browse-kill-ring+ kill-ring-search menu-bar+))
+(mapc 'require '(dired+ elscreen window-number paredit bookmark+ autopair cursor-chg color-moccur moccur-edit lazy-search auto-install second-sel paste2 highlight-symbol highlight-parentheses w3m-load whole-line-or-region browse-kill-ring+ kill-ring-search menu-bar+ rainbow-delimiters))
 (require 'loaddefs)
 
+(setq show-paren-style 'parenthesis)
+(show-paren-mode 1)
+
 (smex-initialize)
+
+(setq hl-paren-colors '("red" "yellow" "cyan" "magenta" "green"))
+;; (highlight-parentheses-mode 1)
 
 (window-number-meta-mode 1)
 
@@ -15,9 +21,6 @@
 (whole-line-or-region-mode 1)
 
 (ido-mode 1)
-
-(show-paren-mode 1)
-(setq show-paren-style 'parenthesis)
 
 (autopair-global-mode 1)
 (add-hook 'sldb-mode-hook #' (lambda () (setq autopair-dont-activate t)))
@@ -33,7 +36,7 @@
 
 (define-key isearch-mode-map (kbd "M-l") 'isearch-to-lazy-search)
 
-(setq auto-install-directory "~/.emacs.d/site-lisp")
+(setq auto-install-directory "~/.emacs.d/site-lisp/")
 
 ;(one-key-default-setup-keys)
 
