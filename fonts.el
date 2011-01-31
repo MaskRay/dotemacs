@@ -5,7 +5,6 @@
 	  nil t))
     (defvar font-list '("文泉驿等宽微米黑" "黑体" "新宋体" "宋体"))
     (require 'cl) ;; find-if is in common list package
-    (find-if #'en-zh-font-existsp font-list)
     (defun en-zh-make-font-string (font-name font-size)
       (if (and (stringp font-size)
 	       (equal ":" (string (elt font-size 0))))
@@ -40,8 +39,8 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
 			    charset
 			    zh-font))))
     (en-zh-set-font
-     '("Bitstream Vera Sans Mono" "Consolas" "DejaVu Sans Mono" "Monospace" "Courier New") ":pixelsize=22"
-     '("DejaVu Sans YuanTi Mono" "文泉驿等宽微米黑" "黑体" "新宋体" "宋体"))
+     '("Consolas" "Bitstream Vera Sans Mono" "DejaVu Sans Mono" "Monospace" "Courier New") ":pixelsize=24"
+     '("DejaVu Sans YuanTi Mono" "Microsoft Yahei" "WenQuanYi Micro Hei Mono"  "WenQuanYi Zen Hei Mono" "SimHei"))
     (global-set-key (kbd "<C-mouse-4>") (lambda () (interactive) (text-scale-decrease 1)))
     (global-set-key (kbd "<C-mouse-5>") (lambda () (interactive) (text-scale-increase 1)))
     )
