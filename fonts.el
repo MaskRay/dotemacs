@@ -39,7 +39,7 @@ If set/leave chinese-font-size to nil, it will follow english-font-size"
 			    charset
 			    zh-font))))
     (en-zh-set-font
-     '("Consolas" "Bitstream Vera Sans Mono" "DejaVu Sans Mono" "Monospace" "Courier New") ":pixelsize=24"
+     '("Consolas" "Bitstream Vera Sans Mono" "DejaVu Sans Mono" "Monospace" "Courier New") ":pixelsize=23"
      '("DejaVu Sans YuanTi Mono" "Microsoft Yahei" "WenQuanYi Micro Hei Mono"  "WenQuanYi Zen Hei Mono" "SimHei"))
     (global-set-key (kbd "<C-mouse-4>") (lambda () (interactive) (text-scale-decrease 1)))
     (global-set-key (kbd "<C-mouse-5>") (lambda () (interactive) (text-scale-increase 1)))
