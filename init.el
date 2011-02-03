@@ -4,4 +4,4 @@
 (require 'package)
 (require 'elpa)
 
-(mapc 'require '(settings utils plugins registers bindings modes eim-config org-config erc-config))
+(mapc (lambda (feature) (require feature nil 'noerror)) '(settings utils plugins registers bindings modes eim-config org-config erc-config))

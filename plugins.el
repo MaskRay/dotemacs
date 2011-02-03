@@ -1,7 +1,7 @@
 (require 'alist)
 (setq elscreen-prefix-key (kbd "C-l"))
 
-(mapc 'require '(dired+ elscreen window-number paredit bookmark+ autopair cursor-chg color-moccur moccur-edit lazy-search auto-install second-sel paste2 highlight-symbol highlight-parentheses w3m-load whole-line-or-region browse-kill-ring+ kill-ring-search menu-bar+ rainbow-delimiters))
+(mapc (lambda (feature) (require feature nil 'noerror)) '(dired+ elscreen window-number paredit bookmark+ autopair cursor-chg color-moccur moccur-edit lazy-search auto-install second-sel paste2 highlight-symbol highlight-parentheses w3m-load whole-line-or-region browse-kill-ring+ kill-ring-search menu-bar+ rainbow-delimiters))
 (require 'loaddefs)
 
 (setq show-paren-style 'parenthesis)
@@ -9,14 +9,10 @@
 
 (smex-initialize)
 
-(setq hl-paren-colors '("red" "yellow" "cyan" "magenta" "green"))
+;; (setq hl-paren-colors '("red" "yellow" "cyan" "magenta" "green"))
 ;; (highlight-parentheses-mode 1)
 
 (window-number-meta-mode 1)
-
-(autoload 'jabber-connect "jabber"
-  "connect to the jabber server and start a jabber xml stream" t)
-(autoload 'twittering-mode "twittering-mode" nil t)
 
 (whole-line-or-region-mode 1)
 
@@ -42,8 +38,8 @@
 
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
-(safe-load "~/.twitter.el")
-(safe-load "~/.newsticker.el")
+(load "~/.twitter.el" 'noerror)
+(load "~/.newsticker.el" 'noerror)
 
 
 (autoload 'imaxima "imaxima" "Image support for Maxima." t)

@@ -1,3 +1,5 @@
+(load "haskell-site-file.el" 'NOERROR)
+
 (defconst my/haskell-reserved-keywords
   (sort 
    (list "case" "class" "data" "default" "deriving" "do" "else" "if" "import" "in" "infix"
@@ -212,13 +214,3 @@
 	     nil))
 
 (provide 'haskell-config)
-
-
-
-
-
-
-
-
-
-
