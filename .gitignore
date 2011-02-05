@@ -5,6 +5,8 @@
 /loaddefs.el
 /elpa
 /eshell
+/tramp
+/url
 /auto-save-list
 /site-lisp/imaxima
 /site-lisp/doxymacs
