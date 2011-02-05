@@ -8,26 +8,31 @@
   (menu-bar-mode -1)
   (scroll-bar-mode -1)
   (auto-image-file-mode 1)
-  
-  (if (window-system)
-      (progn (require 'color-theme-zenburn)
-	    (setq zenburn-bg "#000000")
-	    (color-theme-zenburn)
-	    (require 'fonts)
-	    (window-system-font-setting)
-	    (set-frame-parameter nil 'fullscreen 'maximized)
-	    )
-    (progn (require 'color-theme-hober2)
-	  (color-theme-hober2)
-	  )
-    )
+  (require 'fonts)
+  (window-system-font-setting)
+  (set-frame-parameter nil 'fullscreen 'maximized)
   )
+  
 (if (and (fboundp 'daemonp) (daemonp))
     (add-hook 'after-make-frame-functions
 	      (lambda (frame)
 		(with-selected-frame frame
 		  (frame-setting))))
-  (frame-setting)) 
+  (frame-setting))
+
+(require 'color-theme-zenburn)
+(require 'color-theme-hober2)
+(setq zenburn-bg "#000000")
+(color-theme-zenburn)
+(add-hook 'after-make-frame-functions
+	  (lambda (frame)
+	    (set-variable 'color-theme-is-global nil)
+	    (with-selected-frame frame
+	      (if window-system
+		  (color-theme-zenburn)
+		(color-theme-hober2)
+		)
+		)))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq user-full-name "MaskRay"
