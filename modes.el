@@ -190,4 +190,8 @@ g++ -Wall编译"
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 
 
+(add-hook 'after-save-hook
+	  'executable-make-buffer-file-executable-if-script-p)
+
+
 (provide 'modes)

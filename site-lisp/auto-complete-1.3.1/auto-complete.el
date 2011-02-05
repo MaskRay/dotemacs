@@ -5,7 +5,7 @@
 ;; Author: Tomohiro Matsuyama <m2ym.pub@gmail.com>
 ;; URL: http://cx4a.org/software/auto-complete
 ;; Keywords: completion, convenience
-;; Version: 1.3
+;; Version: 1.3.1
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -163,9 +163,9 @@
   '(emacs-lisp-mode
     lisp-interaction-mode
     c-mode cc-mode c++-mode
-    java-mode malabar-mode clojure-mode scala-mode
+    java-mode clojure-mode scala-mode
     scheme-mode
-    ocaml-mode tuareg-mode haskell-mode
+    ocaml-mode tuareg-mode
     perl-mode cperl-mode python-mode ruby-mode
     ecmascript-mode javascript-mode js-mode js2-mode php-mode css-mode
     makefile-mode sh-mode fortran-mode f90-mode ada-mode
@@ -470,9 +470,8 @@ If there is no common part, this will be nil.")
                 (loop for p from 0 below (length string)
                       ;; sigmoid function
                       with a = 5
-                      with b = (/ 700.0 a) ; bounds for avoiding range error in `exp'
                       with d = (/ 6.0 a)
-                      for x = (max (- b) (min b (- d (abs (- prefix p)))))
+                      for x = (- d (abs (- prefix p)))
                       for r = (/ 1.0 (1+ (exp (* (- a) x))))
                       do
                       (incf score (* (aref stat p) r))))

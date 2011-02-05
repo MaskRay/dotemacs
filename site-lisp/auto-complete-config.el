@@ -4,7 +4,7 @@
 
 ;; Author: Tomohiro Matsuyama <m2ym.pub@gmail.com>
 ;; Keywords: convenience
-;; Version: 1.3
+;; Version: 1.3.1
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 
 ;;; Commentary:
 
-;; tweaked by MaskRay <emacsray@gmail.com>
+;; 
 
 ;;; Code:
 
@@ -184,7 +184,6 @@
   '((available . (or (require 'semantic-ia nil t)
                      (require 'semantic/ia nil t)))
     (candidates . (ac-semantic-candidates ac-prefix))
-    (prefix . symbol)
     (symbol . "s")))
 
 ;; eclim
@@ -375,13 +374,16 @@
 
 (defun ac-css-property-candidates ()
   (or (loop with list = (assoc-default ac-css-property ac-css-property-alist)
+            with seen = nil
             with value
             while (setq value (pop list))
             if (symbolp value)
-            do (setq list
-                     (append list
-                             (or (assoc-default value ac-css-value-classes)
-                                 (assoc-default (symbol-name value) ac-css-property-alist))))
+            do (unless (memq value seen)
+                 (push value seen)
+                 (setq list
+                       (append list
+                               (or (assoc-default value ac-css-value-classes)
+                                   (assoc-default (symbol-name value) ac-css-property-alist)))))
             else collect value)
       ac-css-pseudo-classes))
 
@@ -389,20 +391,6 @@
   '((candidates . ac-css-property-candidates)
     (prefix . ac-css-prefix)
     (requires . 0)))
-
-;; slime
-(ac-define-source slime
-  '((depends slime)
-    (candidates . (car (slime-simple-completions ac-prefix)))
-    (symbol . "s")
-    (cache)))
-
-;; ghc-mod
-(ac-define-source ghc-mod
-  '((depends ghc)
-    (candidates . (ghc-select-completion-symbol))
-    (symbol . "s")
-    (cache)))
 
 
 
@@ -467,21 +455,20 @@
 ;;;; Default settings
 
 (defun ac-common-setup ()
-  (add-to-list 'ac-sources 'ac-source-filename))
+  )
 
 (defun ac-emacs-lisp-mode-setup ()
-  (setq ac-sources (append '(ac-source-features ac-source-functions ac-source-variables ac-source-symbols) ac-sources)))
+  (setq ac-sources (append '(ac-source-features ac-source-functions ac-source-yasnippet ac-source-variables ac-source-symbols) ac-sources)))
 
 (defun ac-cc-mode-setup ()
-  (setq ac-sources (append '(ac-source-semantic-raw ac-source-semantic ac-source-gtags) ac-sources)))
+  (setq ac-sources (append '(ac-source-yasnippet ac-source-gtags) ac-sources)))
 
 (defun ac-ruby-mode-setup ()
   (make-local-variable 'ac-ignores)
   (add-to-list 'ac-ignores "end"))
 
 (defun ac-css-mode-setup ()
-  ;(setq ac-sources (append '(ac-source-css-property) ac-sources))
-  )
+  (setq ac-sources (append '(ac-source-css-property) ac-sources)))
 
 (defun ac-config-default ()
   (setq-default ac-sources '(ac-source-abbrev ac-source-dictionary ac-source-words-in-same-mode-buffers))

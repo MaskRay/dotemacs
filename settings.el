@@ -8,9 +8,19 @@
   (menu-bar-mode -1)
   (scroll-bar-mode -1)
   (auto-image-file-mode 1)
-  (require 'fonts)
-  (window-system-font-setting)
-  (set-frame-parameter nil 'fullscreen 'maximized)
+  
+  (if (window-system)
+      (progn (require 'color-theme-zenburn)
+	    (setq zenburn-bg "#000000")
+	    (color-theme-zenburn)
+	    (require 'fonts)
+	    (window-system-font-setting)
+	    (set-frame-parameter nil 'fullscreen 'maximized)
+	    )
+    (progn (require 'color-theme-hober2)
+	  (color-theme-hober2)
+	  )
+    )
   )
 (if (and (fboundp 'daemonp) (daemonp))
     (add-hook 'after-make-frame-functions
@@ -41,12 +51,6 @@
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
-
-(require 'color-theme)
-(require 'color-theme-zenburn)
-(color-theme-initialize)
-(setq zenburn-bg "#000000")
-(color-theme-zenburn)
 
 (when (not (setq browse-url-generic-program (executable-find "firefox3")))
   (setq browse-url-generic-program (executable-find "firefox"))
