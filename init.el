@@ -2,7 +2,6 @@
 (add-to-list 'load-path dotfiles-dir)
 
 (require 'package)
-(require 'elpa)
 (require 'el-get-init)
 (add-to-list 'load-path vendor-dir)
 
