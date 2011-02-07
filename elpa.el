@@ -3,11 +3,6 @@
 (setq autoload-file (expand-file-name "loaddefs.el" dotfiles-dir))
 (setq vendor-dir (expand-file-name "site-lisp" dotfiles-dir))
 
-(add-to-list 'load-path vendor-dir)
-(let ((default-directory vendor-dir))
-  (normal-top-level-add-subdirs-to-load-path)
-  )
-
 (setq packages '(
                  auctex
                  magit
@@ -49,4 +44,5 @@
 (package-initialize)
 ;; (elpa-install)
 (regen-autoloads)
+
 (provide 'elpa)

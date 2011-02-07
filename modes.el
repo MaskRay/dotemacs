@@ -176,6 +176,10 @@ g++ -Wall编译"
 (add-hook 'emacs-lisp-mode-hook 'esk-remove-elc-on-save)
 
 
+;; ediff
+(setq ediff-split-window-function 'split-window-horizontally)
+
+
 ;; auctex
 (setq TeX-auto-save t)
 (setq TeX-parse-self t)

@@ -1,16 +1,15 @@
-(require 'alist)
-(setq elscreen-prefix-key (kbd "C-l"))
-
-(mapc (lambda (feature) (require feature nil 'noerror)) '(dired+ elscreen window-number paredit bookmark+ autopair cursor-chg color-moccur moccur-edit lazy-search auto-install second-sel paste2 highlight-symbol highlight-parentheses w3m-load whole-line-or-region browse-kill-ring+ kill-ring-search menu-bar+ rainbow-delimiters))
+(require '.loaddefs)
+;; (mapc (lambda (feature) (require feature nil t)) '(dired+ workgroups elscreen window-number paredit bookmark+ autopair cursor-chg color-moccur moccur-edit auto-install second-sel paste2 highlight-symbol w3m-load whole-line-or-region browse-kill-ring+ kill-ring-search menu-bar+ rainbow-delimiters))
+(mapc (lambda (feature) (require feature nil t)) '(browse-kill-ring+ paredit paste2 window-number workgroups))
 (require 'loaddefs)
+
+(setq wg-prefix-key (kbd "C-l"))
+(workgroups-mode 1)
 
 (setq show-paren-style 'parenthesis)
 (show-paren-mode 1)
 
 (smex-initialize)
-
-;; (setq hl-paren-colors '("red" "yellow" "cyan" "magenta" "green"))
-;; (highlight-parentheses-mode 1)
 
 (window-number-meta-mode 1)
 
@@ -24,23 +23,12 @@
 ;; (global-set-key (kbd "M-=") 'pinbar-add)
 ;; (pinbar-mode 1)
 
-(change-cursor-mode 1)
 (toggle-cursor-type-when-idle 1)
-(setq curchg-default-cursor-color "white")
+(setq curchg-default-cursor-color "green")
 
 (defalias 'occur 'occur-by-moccur)
 
-(define-key isearch-mode-map (kbd "M-l") 'isearch-to-lazy-search)
-
-(setq auto-install-directory "~/.emacs.d/site-lisp/")
-
-;(one-key-default-setup-keys)
-
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-
-(load "~/.twitter.el" 'noerror)
-(load "~/.newsticker.el" 'noerror)
-
 
 (autoload 'imaxima "imaxima" "Image support for Maxima." t)
 (autoload 'maxima "maxima" "Maxima interactive" t)

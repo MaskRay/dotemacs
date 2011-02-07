@@ -3,5 +3,7 @@
 
 (require 'package)
 (require 'elpa)
+(require 'el-get-init)
+(add-to-list 'load-path vendor-dir)
 
-(mapc (lambda (feature) (require feature nil 'noerror)) '(settings utils plugins registers bindings modes eim-config org-config erc-config))
+(mapc (lambda (feature) (require feature nil t)) '(settings utils plugins registers bindings modes eim-config org-config erc-config))
