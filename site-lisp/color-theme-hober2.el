@@ -110,7 +110,7 @@ speedbar, tex, view, viper, w3m, widget, woman"
       (dired-symlink-face   . dired-symlink)
       (dired-ignored-face   . dired-ignored)
 
-      (erc-button-nickname-face . underline)
+      ;; (erc-button-nickname-face . underline)
 
       (filladapt-debug-indentation-face-1 . highlight)
       (filladapt-debug-indentation-face-2 . secondary-selection)
@@ -306,7 +306,7 @@ speedbar, tex, view, viper, w3m, widget, woman"
      (erc-input-face ((t (:foreground "lemon chiffon"))))
      (erc-inverse-face ((t (:inverse-video t))))
      (erc-keyword-face ((t (:foreground "medium orchid" :bold t))))
-     (erc-nick-default-face ((t (:foreground "cadet blue"))))
+     (erc-nick-default-face ((t (:inherit bold))))
      (erc-nick-msg-face ((t (:foreground "pale violet red" :bold t))))
      (erc-notice-face ((t (:foreground "steel blue"))))
      (erc-pal-face ((t (:foreground "pale violet red"))))

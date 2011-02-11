@@ -1,10 +1,11 @@
 (require '.loaddefs)
 ;; (mapc (lambda (feature) (require feature nil t)) '(dired+ workgroups elscreen window-number paredit bookmark+ autopair cursor-chg color-moccur moccur-edit auto-install second-sel paste2 highlight-symbol w3m-load whole-line-or-region browse-kill-ring+ kill-ring-search menu-bar+ rainbow-delimiters))
-(mapc (lambda (feature) (require feature nil t)) '(browse-kill-ring+ paredit paste2 window-number workgroups))
+(mapc (lambda (feature) (require feature nil t)) '(browse-kill-ring+ paredit cursor-chg paste2 window-number workgroups))
 (require 'loaddefs)
 
 (setq wg-prefix-key (kbd "C-l"))
 (workgroups-mode 1)
+(setq wg-file (expand-file-name "workgroups" dotfiles-dir))
 
 (setq show-paren-style 'parenthesis)
 (show-paren-mode 1)
@@ -25,6 +26,7 @@
 
 (toggle-cursor-type-when-idle 1)
 (setq curchg-default-cursor-color "green")
+(change-cursor-mode 1)
 
 (defalias 'occur 'occur-by-moccur)
 
