@@ -20,6 +20,7 @@
 	paste2
 	second-sel
 	smex
+	twittering-mode
 	whole-line-or-region
 	window-number
 	workgroups

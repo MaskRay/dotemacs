@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name : scanf
-# --
-scanf("${1:%d}"${1:$(if (string-match "%" text) ", &" "\);")
-}$2${1:$(if (string-match "%" text) "\);" "")}

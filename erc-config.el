@@ -7,6 +7,8 @@
 (setq erc-track-exclude-types '("NICK" "333" "353" "JOIN" "PART" "QUIT"))
 
 
+(load "~/.erc.el" 'noerror)
+
 ;;; erc-nick-notify
 (require 'erc-nick-notify)
 
@@ -28,6 +30,7 @@
 (erc-autojoin-mode -1)
 (add-hook 'erc-after-connect
     	  '(lambda (SERVER NICK)
+	     (erc-toggle-ctcp-autoresponse -1)
     	     (cond
     	      ((string-match "freenode\\.net" SERVER)
     	       (erc-message "PRIVMSG" (concat "NickServ identify " pwfreenode)))
@@ -41,7 +44,7 @@
 (erc-autojoin-mode 1)
 (setq erc-autojoin-channels-alist
       '(
-	("freenode.net" "#gentoo-cn" "#perlchina" "#shlug" "#haiku-cn" "#emacs" "#ubuntu-cn")
+	("freenode.net" "#gentoo-cn" "#emacs" "#ubuntu-cn-ot" "#ubuntu-cn")
 	("oftc.net" "#emacs-cn")
 	))
 
