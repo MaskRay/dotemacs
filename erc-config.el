@@ -30,7 +30,7 @@
 (erc-autojoin-mode -1)
 (add-hook 'erc-after-connect
     	  '(lambda (SERVER NICK)
-	     (erc-toggle-ctcp-autoresponse -1)
+	     (erc-toggle-ctcp-autoresponse 1)
     	     (cond
     	      ((string-match "freenode\\.net" SERVER)
     	       (erc-message "PRIVMSG" (concat "NickServ identify " pwfreenode)))
