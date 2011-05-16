@@ -11,8 +11,9 @@
   (require 'fonts)
   (window-system-font-setting)
   (set-frame-parameter nil 'fullscreen 'maximized)
-  (require 'color-theme-hober2)
-  (color-theme-hober2)
+  ;; (require 'color-theme-hober2)
+  ;; (color-theme-hober2)
+  (require 'zenburn-theme)
 )
 (if (and (fboundp 'daemonp) (daemonp))
     (add-hook 'after-make-frame-functions

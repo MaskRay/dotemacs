@@ -25,6 +25,7 @@
 (global-set-key (kbd "C-M-y") 'secondary-dwim)
 (global-set-key (kbd "C-c k") 'kill-ring-search)
 (global-set-key (kbd "C-x C-p") 'ffap)
+(global-set-key (kbd "C-c e") (lambda () (interactive) (other-window 1) (eshell)))
 
 ;; This is a little hacky since VC doesn’t support git add internally
 (eval-after-load 'vc (define-key vc-prefix-map "i" '(lambda () (interactive) (if (not (eq 'Git (vc-backend buffer-file-name))) (vc-register) (shell-command (format "git add %s" buffer-file-name)) (message "Staged changes.")))))

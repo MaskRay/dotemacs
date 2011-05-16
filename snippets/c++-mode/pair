@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name : pair 
+# --
+typedef pair<${1:int}, $1> ${2:pii};

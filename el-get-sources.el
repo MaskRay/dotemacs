@@ -2,6 +2,7 @@
 
 (setq el-get-sources
       '(
+	auctex
 	autopair
 	bookmark+
 	browse-kill-ring+

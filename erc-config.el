@@ -24,6 +24,7 @@
       (setq pwoftc pwfreenode)
       (setq pwbitlbee (read-passwd "bitlbee password: ")))
   (erc :server "localhost" :port 6667 :nick "MaskRay" :password pwbitlbee)
+  (erc :server "irc.oftc.net" :port 6667 :nick "MaskRay" :password "")
   (erc :server "irc.freenode.net" :port 6667 :nick "MaskRay" :password pwfreenode)
   )
 (require 'erc-join)
@@ -44,7 +45,7 @@
 (erc-autojoin-mode 1)
 (setq erc-autojoin-channels-alist
       '(
-	("freenode.net" "#gentoo-cn" "#emacs" "#ubuntu-cn-ot" "#ubuntu-cn")
+	("freenode.net" "#gentoo-cn" "#emacs" "#haskell" "#ubuntu-cn-ot" "#ubuntu-cn")
 	("oftc.net" "#emacs-cn")
 	))
 

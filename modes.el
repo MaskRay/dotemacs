@@ -113,8 +113,8 @@ g++ -Wall编译"
   (define-key c-mode-base-map (kbd "M-/") 'semantic-ia-complete-symbol-menu)
   (define-key c-mode-base-map [f12] 'semantic-ia-fast-jump)
 
-  (semantic-load-enable-code-helpers)
-  (semantic-load-enable-semantic-debugging-helpers)
+  ;; (semantic-load-enable-code-helpers)
+  ;; (semantic-load-enable-semantic-debugging-helpers)
   (add-to-list 'ac-omni-completion-sources
 	       (cons "\\." '(ac-source-semantic)))
   (add-to-list 'ac-omni-completion-sources
