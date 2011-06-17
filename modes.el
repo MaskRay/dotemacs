@@ -110,15 +110,26 @@ g++ -Wall编译"
   (add-to-list 'c-cleanup-list 'one-liner-defun)
   (define-key c-mode-base-map [f5] 'smart-compile)
   (define-key c-mode-base-map "\C-m" 'reindent-then-newline-and-indent)
-  (define-key c-mode-base-map (kbd "M-/") 'semantic-ia-complete-symbol-menu)
+  ;; (define-key c-mode-base-map (kbd "M-/") 'semantic-ia-complete-symbol-menu)
+  (define-key c-mode-base-map (kbd "M-n") 'semantic-ia-complete-symbol-menu)
   (define-key c-mode-base-map [f12] 'semantic-ia-fast-jump)
-
-  ;; (semantic-load-enable-code-helpers)
-  ;; (semantic-load-enable-semantic-debugging-helpers)
-  (add-to-list 'ac-omni-completion-sources
-	       (cons "\\." '(ac-source-semantic)))
-  (add-to-list 'ac-omni-completion-sources
-	       (cons "->" '(ac-source-semantic)))
+  (global-set-key [S-f12]
+		  (lambda ()
+		    (interactive)
+		    (if (ring-empty-p (oref semantic-mru-bookmark-ring ring))
+			(error "Semantic Bookmark ring is currently empty"))
+		    (let* ((ring (oref semantic-mru-bookmark-ring ring))
+			   (alist (semantic-mrub-ring-to-assoc-list ring))
+			   (first (cdr (car alist))))
+		      (if (semantic-equivalent-tag-p (oref first tag)
+						     (semantic-current-tag))
+			  (setq first (cdr (car (cdr alist)))))
+		      (semantic-mrub-switch-tags first))))
+  
+  (semantic-load-enable-code-helpers)
+  (semantic-load-enable-semantic-debugging-helpers)
+  (define-key semantic-tag-folding-mode-map (kbd "C-c , -") 'semantic-tag-folding-fold-block)
+  (define-key semantic-tag-folding-mode-map (kbd "C-c , +") 'semantic-tag-folding-show-block)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 

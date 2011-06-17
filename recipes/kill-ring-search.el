@@ -1,2 +1,1 @@
-(:name kill-ring-search+
-       :type emacswiki)
+(:name kill-ring-search :type emacswiki)

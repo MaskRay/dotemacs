@@ -1,0 +1,49 @@
+int dist[${1:V}], q[$1];
+bool in[$1];
+struct Edge { int v; ll c, w; Edge *next, *pair; } *e[$1], *pre[$1], pool[$2], *pit = pool;
+
+void insert(int u, int v, int c, int w)
+{
+    *pit = (Edge){v, c, w, e[u], pit+1}; e[u] = pit++;
+    *pit = (Edge){u, 0, -w, e[v], pit-1}; e[v] = pit++;
+}
+
+bool minDistance(int n, int src, int sink)
+{
+    fill(in, in+n, false);
+    fill(dist, dist+n, INT_MAX);
+    fill(pre, pre+n, (Edge *)0);
+    dist[src] = 0;
+    q[0] = src;
+    for (int *fore = q, *rear = q+1; fore != rear; ) {
+        int u = *fore++;
+        if (fore == q+$1) fore = q;
+        in[u] = false;
+        for (Edge *it = e[u]; it; it = it->next)
+            if (it->c > 0 && dist[u]+it->w < dist[it->v]) {
+                dist[it->v] = dist[u]+it->w;
+                pre[it->v] = it;
+                if (!in[it->v]) {
+                    in[it->v] = true;
+                    *rear++ = it->v;
+                    if (rear == q+$1) rear = q;
+                }
+            }
+    }
+    return dist[sink] < INT_MAX;
+}
+
+int minCost(int n, int src, int sink)
+{
+    int cost = 0;
+    while (minDistance(n, src, sink)) {
+        int d = INT_MAX;
+        for (int v = sink; v != src; v = pre[v]->pair->v)
+            d = min(d, pre[v]->c);
+        for (int v = sink; v != src; v = pre[v]->pair->v)
+            pre[v]->c -= d, pre[v]->pair->c += d;
+        cost += dist[sink]*d;
+    }
+    return cost;
+}
+

@@ -5,17 +5,19 @@
 	auctex
 	autopair
 	bookmark+
-	browse-kill-ring+
+	browse-kill-ring
 	color-moccur
 	cursor-chg
 	dired+
+	drag-stuff
 	eim
 	erc-highlight-nicknames
 	follow-mouse
 	highlight-symbol
+	kill-ring-search
 	magit
-	menu-bar+
 	moccur-edit
+	multi-term
 	org-mode
 	paredit
 	paste2

@@ -25,7 +25,7 @@
       (setq pwbitlbee (read-passwd "bitlbee password: ")))
   (erc :server "localhost" :port 6667 :nick "MaskRay" :password pwbitlbee)
   (erc :server "irc.oftc.net" :port 6667 :nick "MaskRay" :password "")
-  (erc :server "irc.freenode.net" :port 6667 :nick "MaskRay" :password pwfreenode)
+  (erc :server "irc.freenode.net" :port 6665 :nick "MaskRay" :password pwfreenode)
   )
 (require 'erc-join)
 (erc-autojoin-mode -1)

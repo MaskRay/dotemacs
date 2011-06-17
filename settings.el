@@ -14,6 +14,7 @@
   ;; (require 'color-theme-hober2)
   ;; (color-theme-hober2)
   (require 'zenburn-theme)
+  (enable-theme 'zenburn)
 )
 (if (and (fboundp 'daemonp) (daemonp))
     (add-hook 'after-make-frame-functions

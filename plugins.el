@@ -1,34 +1,45 @@
 (require '.loaddefs)
 ;; (mapc (lambda (feature) (require feature nil t)) '(dired+ workgroups elscreen window-number paredit bookmark+ autopair cursor-chg color-moccur moccur-edit auto-install second-sel paste2 highlight-symbol w3m-load whole-line-or-region browse-kill-ring+ kill-ring-search menu-bar+ rainbow-delimiters))
-(mapc (lambda (feature) (require feature nil t)) '(browse-kill-ring+ paredit cursor-chg paste2 window-number workgroups))
+(mapc (lambda (feature) (require feature nil t)) '(paredit paste2))
 (require 'loaddefs)
 
-(setq wg-prefix-key (kbd "C-l"))
-(workgroups-mode 1)
-(setq wg-file (expand-file-name "workgroups" dotfiles-dir))
+(when (require 'drag-stuff nil 'noerror)
+  (drag-stuff-global-mode 1))
+
+(setq multi-term-program "/bin/zsh")
+
+(when (require 'workgroups nil 'noerror)
+  (setq wg-prefix-key (kbd "C-l"))
+  (workgroups-mode 1)
+  (setq wg-file (expand-file-name "workgroups" dotfiles-dir)))
 
 (setq show-paren-style 'parenthesis)
 (show-paren-mode 1)
 
-(smex-initialize)
+(setq highlight-symbol-idle-delay 0.5)
 
-(window-number-meta-mode 1)
+(when (require 'smex nil 'noerror)
+  (smex-initialize))
 
-(whole-line-or-region-mode 1)
+(when (require 'window-number nil 'noerror)
+  (window-number-meta-mode 1))
+
+(when (require 'whole-line-or-region nil 'noerror)
+ (whole-line-or-region-mode 1))
 
 (ido-mode 1)
 
-(autopair-global-mode 1)
-(add-hook 'sldb-mode-hook #' (lambda () (setq autopair-dont-activate t)))
+(when (require 'autopair nil 'noerror)
+  (autopair-global-mode 1)
+  (add-hook 'sldb-mode-hook #' (lambda () (setq autopair-dont-activate t))))
 
-;; (global-set-key (kbd "M-=") 'pinbar-add)
-;; (pinbar-mode 1)
+(when (require 'cursor-chg nil 'noerror)
+  (toggle-cursor-type-when-idle 1)
+  (setq curchg-default-cursor-color "green")
+  (change-cursor-mode 1))
 
-(toggle-cursor-type-when-idle 1)
-(setq curchg-default-cursor-color "green")
-(change-cursor-mode 1)
-
-(defalias 'occur 'occur-by-moccur)
+(when (require 'color-moccur nil 'noerror)
+  (defalias 'occur 'occur-by-moccur))
 
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
@@ -103,5 +114,37 @@
 
 (setq term-unbind-key-list '("C-x" "C-l" "<ESC>"))
 
+(setq bm-restore-repository-on-load t)
+(when (require 'bm nil 'noerror)
+  (setq-default bm-buffer-persistence t)
+  (setq bm-cycle-all-buffers t)
+  (setq bm-highlight-style
+        (if (and window-system (> emacs-major-version 21))
+            'bm-highlight-only-fringe
+          'bm-highlight-only-line))
+  ;; (add-hook' after-init-hook 'bm-repository-load)
+  (add-hook 'find-file-hooks 'bm-buffer-restore)
+  (add-hook 'kill-buffer-hook 'bm-buffer-save)
+  (add-hook 'kill-emacs-hook '(lambda nil
+                                (bm-buffer-save-all)
+                                (bm-repository-save)))
+  ;; (add-hook 'after-save-hook 'bm-buffer-save)
+  ;; (add-hook 'after-revert-hook 'bm-buffer-restore)
+  (global-set-key (kbd "<C-f2>") 'bm-toggle)
+  (global-set-key [M-f2] 'bm-toggle)
+  (global-set-key (kbd "ESC <f2>") 'bm-toggle) ; putty
+  (global-set-key (kbd "<f2>")   'bm-next)
+  (global-set-key (kbd "<S-f2>") 'bm-previous)
+  (global-set-key (kbd "<C-S-f2>") 'bm-remove-all-current-buffer)
+  (global-set-key [left-margin mouse-1] 'bm-toggle-mouse)
+  (global-set-key [left-margin mouse-3] 'bm-next-mouse)
+  )
+
+(when (require 'kill-ring-search nil 'noerror)
+  (global-set-key (kbd "C-c k") 'kill-ring-search)
+  )
+
+(when (require 'browse-kill-ring nil 'noerror)
+  (browse-kill-ring-default-keybindings))
 
 (provide 'plugins)
