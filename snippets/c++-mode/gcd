@@ -1,0 +1,6 @@
+${1:int} gcd($1 a, $1 b)
+{
+    $1 t;
+    while (b) t = a%b, a = b, b = t;
+    return a;
+}
