@@ -128,8 +128,8 @@ g++ -Wall编译"
   
   (semantic-load-enable-code-helpers)
   (semantic-load-enable-semantic-debugging-helpers)
-  (define-key semantic-tag-folding-mode-map (kbd "C-c , -") 'semantic-tag-folding-fold-block)
-  (define-key semantic-tag-folding-mode-map (kbd "C-c , +") 'semantic-tag-folding-show-block)
+  ;; (define-key semantic-tag-folding-mode-map (kbd "C-c , -") 'semantic-tag-folding-fold-block)
+  ;; (define-key semantic-tag-folding-mode-map (kbd "C-c , +") 'semantic-tag-folding-show-block)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
 
