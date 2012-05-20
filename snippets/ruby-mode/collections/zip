@@ -1,3 +1,3 @@
-#name : zip(...) { |...| ... }
+#name : zip(...) {|...| ... }
 # --
-zip(${enums}) { |${row}| $0 }
+zip(${enums}) {|${row}| $0 }

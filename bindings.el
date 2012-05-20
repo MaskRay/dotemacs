@@ -35,6 +35,7 @@
 				(interactive)
 				(other-window -1)))
 
+(global-set-key (kbd "C-c o") 'occur)
 ;; Activate occur easily inside isearch
 (define-key isearch-mode-map (kbd "C-o")
   (lambda () (interactive)
@@ -65,6 +66,7 @@
 (global-set-key (kbd "C-c d") 'prelude-duplicate-current-line-or-region)
 (global-set-key (kbd "C-c r") 'prelude-rename-file-and-buffer)
 (global-set-key (kbd "C-c t") 'prelude-visit-term-buffer)
+
 
 (require 'helm-config)
 (global-set-key (kbd "C-c h") 'helm-mini)

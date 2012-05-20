@@ -46,9 +46,9 @@
 (setq ac-quick-help-delay 0.3)
 (define-globalized-minor-mode real-global-auto-complete-mode
   auto-complete-mode (lambda ()
-                       (if (not (minibufferp (current-buffer)))
+		       (if (not (minibufferp (current-buffer)))
 			   (auto-complete-mode 1))
-                       ))
+		       ))
 (real-global-auto-complete-mode 1)
 
 
@@ -72,40 +72,40 @@ g++ -Wall编译"
   (interactive)
   ;; 查找 Makefile
   (let ((candidate-make-file-name '("makefile" "Makefile" "GNUmakefile"))
-        (command nil))
+	(command nil))
     (if (not (null
-              (find t candidate-make-file-name :key
-                    '(lambda (f) (file-readable-p f)))))
-        (setq command "make -k ")
-        ;; 没有找到 Makefile ，查看当前 mode 是否是已知的可编译的模式
-        (if (null (buffer-file-name (current-buffer)))
-            (message "Buffer not attached to a file, won't compile!")
-            (if (eq major-mode 'c-mode)
-                (setq command
-                      (concat "gcc -Wall -o "
-                              (file-name-sans-extension
-                               (file-name-nondirectory buffer-file-name))
-                              " "
-                              (file-name-nondirectory buffer-file-name)
-                              " -g -lm "))
-              (if (eq major-mode 'c++-mode)
-                  (setq command
-                        (concat "g++ -Wall -o "
-                                (file-name-sans-extension
-                                 (file-name-nondirectory buffer-file-name))
-                                " "
-                                (file-name-nondirectory buffer-file-name)
-                                " -g -lm "))
-                (message "Unknow mode, won't compile!")))))
+	      (find t candidate-make-file-name :key
+		    '(lambda (f) (file-readable-p f)))))
+	(setq command "make -k ")
+	;; 没有找到 Makefile ，查看当前 mode 是否是已知的可编译的模式
+	(if (null (buffer-file-name (current-buffer)))
+	    (message "Buffer not attached to a file, won't compile!")
+	    (if (eq major-mode 'c-mode)
+		(setq command
+		      (concat "gcc -Wall -o "
+			      (file-name-sans-extension
+			       (file-name-nondirectory buffer-file-name))
+			      " "
+			      (file-name-nondirectory buffer-file-name)
+			      " -g -lm "))
+	      (if (eq major-mode 'c++-mode)
+		  (setq command
+			(concat "g++ -Wall -o "
+				(file-name-sans-extension
+				 (file-name-nondirectory buffer-file-name))
+				" "
+				(file-name-nondirectory buffer-file-name)
+				" -g -lm "))
+		(message "Unknow mode, won't compile!")))))
     (if (not (null command))
-        (let ((command (read-from-minibuffer "Compile command: " command)))
-          (compile command)))))
+	(let ((command (read-from-minibuffer "Compile command: " command)))
+	  (compile command)))))
 
 (defun my-c-mode-common-hook ()
   (c-set-style "k&r")
   (setq tab-width 4 indent-tabs-mode nil c-basic-offset 4)
   (c-toggle-auto-hungry-state 1)
-  (c-toggle-electric-state -1)
+  (c-toggle-electric-state 1)
   (add-to-list 'c-cleanup-list 'brace-else-brace)
   (add-to-list 'c-cleanup-list 'brace-elseif-brace)
   (add-to-list 'c-cleanup-list 'brace-catch-brace)
@@ -128,7 +128,7 @@ g++ -Wall编译"
 						     (semantic-current-tag))
 			  (setq first (cdr (car (cdr alist)))))
 		      (semantic-mrub-switch-tags first))))
-  
+
   (semantic-load-enable-code-helpers)
   (semantic-load-enable-semantic-debugging-helpers)
   ;; (define-key semantic-tag-folding-mode-map (kbd "C-c , -") 'semantic-tag-folding-fold-block)
@@ -185,9 +185,9 @@ g++ -Wall编译"
   "If you're saving an elisp file, likely the .elc is no longer valid."
   (make-local-variable 'after-save-hook)
   (add-hook 'after-save-hook
-            (lambda ()
-              (if (file-exists-p (concat buffer-file-name "c"))
-                  (delete-file (concat buffer-file-name "c"))))))
+	    (lambda ()
+	      (if (file-exists-p (concat buffer-file-name "c"))
+		  (delete-file (concat buffer-file-name "c"))))))
 
 (add-hook 'emacs-lisp-mode-hook 'esk-remove-elc-on-save)
 
