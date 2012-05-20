@@ -5,18 +5,16 @@
 	auctex
 	autopair
 	bookmark+
-	browse-kill-ring
-	color-moccur
 	cursor-chg
 	dired+
 	drag-stuff
 	eim
 	erc-highlight-nicknames
+	expand-region
 	follow-mouse
 	highlight-symbol
 	kill-ring-search
 	magit
-	moccur-edit
 	multi-term
 	org-mode
 	paredit
@@ -30,9 +28,11 @@
 	yasnippet
 	)
       )
-(el-get 'sync)
+; (el-get 'sync)
 
 (let ((default-directory (expand-file-name "el-get" dotfiles-dir)))
   (normal-top-level-add-to-load-path '("."))
   (normal-top-level-add-subdirs-to-load-path)
   )
+
+(provide 'el-get-sources)

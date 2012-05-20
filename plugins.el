@@ -1,7 +1,10 @@
-(require '.loaddefs)
+(require '.loaddefs nil t)
 ;; (mapc (lambda (feature) (require feature nil t)) '(dired+ workgroups elscreen window-number paredit bookmark+ autopair cursor-chg color-moccur moccur-edit auto-install second-sel paste2 highlight-symbol w3m-load whole-line-or-region browse-kill-ring+ kill-ring-search menu-bar+ rainbow-delimiters))
 (mapc (lambda (feature) (require feature nil t)) '(paredit paste2))
-(require 'loaddefs)
+(require 'loaddefs nil t)
+
+(when (require 'expand-region nil 'noerror)
+  (global-set-key (kbd "C-=") 'er/expand-region))
 
 (when (require 'drag-stuff nil 'noerror)
   (drag-stuff-global-mode 1))
@@ -9,7 +12,8 @@
 (setq multi-term-program "/bin/zsh")
 
 (when (require 'workgroups nil 'noerror)
-  (setq wg-prefix-key (kbd "C-l"))
+  (setq wg-prefix-key (kbd "C-l")
+	wg-morph-on nil)
   (workgroups-mode 1)
   (setq wg-file (expand-file-name "workgroups" dotfiles-dir)))
 
@@ -30,7 +34,7 @@
 (ido-mode 1)
 
 (when (require 'autopair nil 'noerror)
-  (autopair-global-mode 1)
+  ;; (autopair-global-mode 1)
   (add-hook 'sldb-mode-hook #' (lambda () (setq autopair-dont-activate t))))
 
 (when (require 'cursor-chg nil 'noerror)

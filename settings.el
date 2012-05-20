@@ -15,13 +15,14 @@
   ;; (color-theme-hober2)
   (require 'zenburn-theme)
   (enable-theme 'zenburn)
+  ;; (wg-load "~/workgroups")
 )
 (if (and (fboundp 'daemonp) (daemonp))
     (add-hook 'after-make-frame-functions
 	      (lambda (frame)
 		(with-selected-frame frame
 		  (frame-setting))))
-  (frame-setting)) 
+  (frame-setting))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (setq user-full-name "MaskRay"
@@ -30,7 +31,7 @@
       enable-recursive-minibuffers t
       scroll-margin 0
       x-select-enable-clipboard t
-      x-select-enable-primary nil
+      x-select-enable-primary t
       system-time-locale "C"
       default-input-method "TeX"
       inhibit-startup-screen t
@@ -47,7 +48,7 @@
 (load custom-file 'noerror)
 
 (when (not (setq browse-url-generic-program (executable-find "firefox3")))
-  (setq browse-url-generic-program (executable-find "firefox"))
+  (setq browse-url-generic-program (executable-find "firefox-bin"))
   )
 (setq browse-url-browser-function 'browse-url-generic)
 

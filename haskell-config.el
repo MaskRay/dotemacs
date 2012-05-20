@@ -1,27 +1,41 @@
 (load "haskell-site-file.el" 'NOERROR)
+(require 'ac-ghc-mod)
+;;(load "/usr/share/emacs/site-lisp/haskell-mode/examples/init.el")
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook 'haskell-font-lock-symbols t)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
+(setq haskell-process-type 'ghci)
+(add-to-list 'completion-ignored-extensions ".hi")
+
+
+(define-key haskell-mode-map (kbd "<return>") 'haskell-simple-indent-newline-same-col)
+(define-key haskell-mode-map [?\C-c ?\C-l] 'haskell-process-load-file)
+(define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
+(define-key haskell-mode-map [f8] 'haskell-navigate-imports)
+(define-key haskell-mode-map (kbd "M-.") 'haskell-mode-tag-find)
+(define-key haskell-mode-map (kbd "C-x C-s") 'haskell-mode-save-buffer-and-tags)
 
 (defconst my/haskell-reserved-keywords
-  (sort 
+  (sort
    (list "case" "class" "data" "default" "deriving" "do" "else" "if" "import" "in" "infix"
    "infixl" "infixr" "instance" "let" "module" "newtype" "of" "then" "type" "where" "as"
    "qualified" "hiding")
    #'(lambda (a b) (> (length a) (length b))))
   "Reserved keywords in Haskell.")
-  
+
 (defconst my/haskell-defined-types
-  (sort 
+  (sort
    (list "Bool" "False" "True" "Char" "String" "IO" "IOError" "Maybe" "Just" "Nothing"
    "Either" "Right" "Left" "Ordering" "LT" "EQ" "GT" "Integer" "Int" "Ratio" "Float"
    "Double" "Complex")
    #'(lambda (a b) (> (length a) (length b))))
   "Defined types in Haskell.")
-  
+
 (defconst my/haskell-defined-classes
-  (sort 
+  (sort
    (list "Eq" "==" "/=" "Ord" "compare" "max" "min" "<=" ">=" "ReadS" "ShowS" "Read"
    "read" "readsPrec" "readList" "showsPrec" "show" "showList" "Enum" "succ" "toEnum"
    "fromEnum" "enumFrom" "enumFromThen" "enumFromTo" "enumFromThenTo" "Functor" "fmap"
@@ -35,7 +49,7 @@
    "isNegativeZero" "isIEEE" "atan2" "gcd" "lcm" "^^" "fromIntegral" "realtoFrac")
    #'(lambda (a b) (> (length a) (length b))))
   "Defined classes in Haskell.")
-  
+
 (defconst my/haskell-prelude-functions
   (sort
    (list ; "&&" "||"
@@ -53,10 +67,10 @@
 	 "readLn" "IOException" "ioError" "userError" "catch")
    #'(lambda (a b) (> (length a) (length b))))
   "Defined functions in GHC Prelude.")
-  
+
 (defconst my/haskell-ghc-modules
-  (sort 
-   (list 
+  (sort
+   (list
    "Control.Applicative" "Control.Arrow" "Control.Category" "Control.Concurrent"
    "Control.Concurrent.MVar" "Control.Concurrent.QSem" "Control.Concurrent.QSemN"
    "Control.Concurrent.STM" "Control.Concurrent.STM.TArray" "Control.Concurrent.STM.TChan"
@@ -71,7 +85,7 @@
    "Control.Monad.State" "Control.Monad.State.Class" "Control.Monad.State.Lazy"
    "Control.Monad.State.Strict" "Control.Monad.Trans" "Control.Monad.Writer"
    "Control.Monad.Writer.Class" "Control.Monad.Writer.Lazy" "Control.Monad.Writer.Strict"
-   "Control.OldException" "Control.Parallel" "Control.Parallel.Strategies" 
+   "Control.OldException" "Control.Parallel" "Control.Parallel.Strategies"
    "Data.Array" "Data.Array.Diff" "Data.Array.IArray" "Data.Array.IO"
    "Data.Array.IO.Internals" "Data.Array.MArray" "Data.Array.Paralell"
    "Data.Array.Paralell.Arr" "Data.Array.Paralell.Base" "Data.Array.Paralell.Lifted"
@@ -95,7 +109,7 @@
    "Data.Time.Calendar.OrdinalDate" "Data.Time.Calendar.WeekDate" "Data.Time.Clock"
    "Data.Time.Clock.POSIX" "Data.Time.Clock.TAI" "Data.Time.Format" "Data.Time.LocalTime"
    "Data.Traversable" "Data.Tree" "Data.Tuple" "Data.Typeable" "Data.Unique"
-   "Data.Version" "Data.Word" "Debug.Trace" 
+   "Data.Version" "Data.Word" "Debug.Trace"
    "Distribution.Compat.ReadP" "Distribution.Compiler" "Distribution.InstalledPackageInfo"
    "Distribution.License" "Distribution.Make" "Distribution.ModuleName"
    "Distribution.Package" "Distribution.PackageDescription"
@@ -125,7 +139,7 @@
    "Language.Haskell.ParseUtils" "Language.Haskell.Parser" "Language.Haskell.Pretty"
    "Language.Haskell.Syntax" "Language.Haskell.TH" "Language.Haskell.TH.Lib"
    "Language.Haskell.TH.Ppr" "Language.Haskell.TH.PprLib" "Language.Haskell.TH.Quote"
-   "Language.Haskell.TH.Syntax" 
+   "Language.Haskell.TH.Syntax"
    "Network" "Network.BSD" "Network.Socket" "Network.URI" "Numeric"
    "Prelude"
    "System.CPUTime" "System.Cmd" "System.Console.Editline" "System.Console.Readline"
@@ -140,7 +154,7 @@
    "System.Posix.SharedMem" "System.Posix.Signals" "System.Posix.Signals.Exts"
    "System.Posix.Temp" "System.Posix.Terminal" "System.Posix.Time" "System.Posix.Types"
    "System.Posix.Unistd" "System.Posix.User" "System.Process" "System.Random"
-   "System.Time" "System.Timeout" 
+   "System.Time" "System.Timeout"
    "Test.HUnit" "Test.HUnit.Base" "Test.HUnit.Lang" "Test.HUnit.Terminal"
    "Test.HUnit.Text" "Test.QuickCheck" "Test.QuickCheck.Batch" "Test.QuickCheck.Poly"
    "Test.QuickCheck.Utils" "Text.Html" "Text.Html.BlockTable"
@@ -156,20 +170,20 @@
    "Text.Regex.Posix.Wrap" "Text.Show" "Text.Show.Functions" "Text.XHtml"
    "Text.XHtml.Debug" "Text.XHtml.Frameset" "Text.XHtml.Strict" "Text.XHtml.Table"
    "Text.XHtml.Transitional" "Trace.Hpc.Mix" "Trace.Hpc.Reflect" "Trace.Hpc.Tix"
-   "Trace.Hpc.Util" 
+   "Trace.Hpc.Util"
    "Unsafe.Coerce") #'(lambda (a b) (> (length a) (length b))))
   "GHC modules.")
-  
-;; see also the latest GHC manual 
+
+;; see also the latest GHC manual
 ;; http://www.haskell.org/ghc/docs/latest/html/users_guide/pragmas.html
 (defconst my/haskell-ghc-pragmas
-  (sort 
+  (sort
    (list "LANGUAGE" "OPTIONS_GHC" "INCLUDE" "WARNING" "DEPRECATED" "INLINE" "NOINLINE"
    "LINE" "RULES" "SPECIALIZE" "UNPACK" "SOURCE")
    #'(lambda (a b) (> (length a) (length b))))
   "GHC pragmas.")
-  
-;; see also the latest GHC manual 
+
+;; see also the latest GHC manual
 ;; http://www.haskell.org/ghc/docs/latest/html/users_guide/flag-reference.html#id2631364
 (defvar my/haskell-ghc-options
   (list "OverlappingInstances" "IncoherentInstances" "UndecidableInstances" "Arrows"
@@ -191,30 +205,35 @@
   (sort (append nil my/haskell-ghc-options my/haskell-ghc-no-options)
 	#'(lambda (a b) (> (length a) (length b))))
   "GHC Language options.")
-  
+
 (defvar my/ac-source-haskell
-  '((candidates 
-     . (lambda () 
-	 (all-completions ac-target 
-			  (append nil 
-				  my/haskell-defined-types
-				  my/haskell-defined-classes
-				  my/haskell-reserved-keywords
-				  my/haskell-prelude-functions
-				  my/haskell-ghc-modules
+  '((candidates
+     . (lambda ()
+	 (all-completions ac-target
+			  (append nil
+				  ;; my/haskell-defined-types
+				  ;; my/haskell-defined-classes
+				  ;; my/haskell-reserved-keywords
+				  ;; my/haskell-prelude-functions
+				  ;; my/haskell-ghc-modules
 				  my/haskell-ghc-pragmas
 				  my/haskell-ghc-language-options
-				  '("-fglasgow-exts")
 				  )))))
   "Sources for Haskell keywords.")
-  
+
 (add-hook 'haskell-mode-hook
 	  '(lambda () (auto-complete-mode 1)
 	     (make-local-variable 'ac-sources)
 	     (setq ac-sources '(ac-source-yasnippet
 				ac-source-abbrev
+				ac-source-ghc-symbol
+				ac-source-ghc-module
+				ac-source-ghc-pragmas
+				ac-source-ghc-langexts
 				ac-source-words-in-buffer
-				my/ac-source-haskell))
+				my/ac-source-haskell
+				))
 	     nil))
+
 
 (provide 'haskell-config)

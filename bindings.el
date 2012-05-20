@@ -14,6 +14,7 @@
 (global-set-key (kbd "C-c r") 'highlight-symbol-query-replace)
 
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
+(global-set-key (kbd "C-x K") 'kill-buffer)
 (global-set-key (kbd "C-4") 'kill-this-buffer)
 (global-set-key (kbd "C-3") 'split-window-horizontally)
 (global-set-key (kbd "C-2") 'split-window-vertically)
