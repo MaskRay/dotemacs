@@ -23,6 +23,7 @@
 	;; whole-line-or-region
 	window-number
 	workgroups
+	yari
 	yasnippet
 	)
       )
