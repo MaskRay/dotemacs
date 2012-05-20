@@ -1,6 +1,7 @@
 (add-to-list 'load-path (expand-file-name "el-get/el-get" dotfiles-dir))
 (require 'el-get)
 (require 'el-get-core)
+(require 'el-get-methods)
 (require 'el-get-recipes)
 
 ;; (if (require 'el-get nil t)

@@ -8,21 +8,19 @@
 	cursor-chg
 	dired+
 	drag-stuff
-	eim
-	erc-highlight-nicknames
 	expand-region
+	fastnav
 	follow-mouse
+	helm
 	highlight-symbol
 	kill-ring-search
-	magit
 	multi-term
 	org-mode
 	paredit
-	paste2
 	second-sel
 	smex
 	twittering-mode
-	whole-line-or-region
+	;; whole-line-or-region
 	window-number
 	workgroups
 	yasnippet

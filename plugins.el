@@ -1,14 +1,14 @@
-(require '.loaddefs nil t)
+;; (require '.loaddefs nil t)
 ;; (mapc (lambda (feature) (require feature nil t)) '(dired+ workgroups elscreen window-number paredit bookmark+ autopair cursor-chg color-moccur moccur-edit auto-install second-sel paste2 highlight-symbol w3m-load whole-line-or-region browse-kill-ring+ kill-ring-search menu-bar+ rainbow-delimiters))
-(mapc (lambda (feature) (require feature nil t)) '(paredit paste2))
-(require 'loaddefs nil t)
+(mapc (lambda (feature) (require feature nil t)) '(paredit))
+;; (require 'loaddefs nil t)
 
-(when (require 'expand-region nil 'noerror)
-  (global-set-key (kbd "C-=") 'er/expand-region))
+(require 'expand-region nil 'noerror)
 
 (when (require 'drag-stuff nil 'noerror)
   (drag-stuff-global-mode 1))
 
+(require 'multi-term)
 (setq multi-term-program "/bin/zsh")
 
 (when (require 'workgroups nil 'noerror)
@@ -31,7 +31,14 @@
 (when (require 'whole-line-or-region nil 'noerror)
  (whole-line-or-region-mode 1))
 
+(icomplete-mode 1)
 (ido-mode 1)
+(setq ido-enable-prefix nil
+      ido-enable-flex-matching t
+      ido-create-new-buffer 'always
+      ido-use-filename-at-point 'guess
+      ido-max-prospects 10
+      ido-default-file-method 'selected-window)
 
 (when (require 'autopair nil 'noerror)
   ;; (autopair-global-mode 1)

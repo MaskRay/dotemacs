@@ -1,6 +1,9 @@
 ;; haskell
 (require 'haskell-config)
 
+;; ruby
+(require 'ruby-config)
+
 ;; eshell
 (defun eshell/clear ()
   (interactive)

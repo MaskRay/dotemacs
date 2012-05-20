@@ -222,7 +222,9 @@
   "Sources for Haskell keywords.")
 
 (add-hook 'haskell-mode-hook
-	  '(lambda () (auto-complete-mode 1)
+	  '(lambda ()
+	     (auto-complete-mode 1)
+	     (subword-mode 1)
 	     (make-local-variable 'ac-sources)
 	     (setq ac-sources '(ac-source-yasnippet
 				ac-source-abbrev
