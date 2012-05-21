@@ -2,9 +2,11 @@
 *.elc
 *.dat
 \#*\#
+.\#*
 
 /auto-save-list
 /eshell
 /loaddefs.el
 /tramp
 /url
+/workgroups

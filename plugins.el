@@ -44,10 +44,10 @@
   ;; (autopair-global-mode 1)
   (add-hook 'sldb-mode-hook #' (lambda () (setq autopair-dont-activate t))))
 
-(when (require 'cursor-chg nil 'noerror)
-  (toggle-cursor-type-when-idle 1)
-  (setq curchg-default-cursor-color "green")
-  (change-cursor-mode 1))
+;; (when (require 'cursor-chg nil 'noerror)
+;;   (toggle-cursor-type-when-idle 1)
+;;   (setq curchg-default-cursor-color "green")
+;;   (change-cursor-mode 1))
 
 (when (require 'color-moccur nil 'noerror)
   (defalias 'occur 'occur-by-moccur))
@@ -83,28 +83,28 @@
 (defalias 'list-buffers 'ibuffer)
 (setq ibuffer-saved-filter-groups
       (quote (("default"
-               ("dired" (mode . dired-mode))
-               ("perl" (mode . cperl-mode))
-               ("erc" (mode . erc-mode))
-               ("planner" (or
-                           (name . "^\\*Calendar\\*$")
-                           (name . "^diary$")
-                           (mode . muse-mode)))
-               ("emacs" (or
-                         (name . "^\\*scratch\\*$")
-                         (name . "^\\*Messages\\*$")))
-               ("gnus" (or
-                        (mode . message-mode)
-                        (mode . bbdb-mode)
-                        (mode . mail-mode)
-                        (mode . gnus-group-mode)
-                        (mode . gnus-summary-mode)
-                        (mode . gnus-article-mode)
-                        (name . "^\\.bbdb$")
-                        (name . "^\\.newsrc-dribble")))))))
+	       ("dired" (mode . dired-mode))
+	       ("perl" (mode . cperl-mode))
+	       ("erc" (mode . erc-mode))
+	       ("planner" (or
+			   (name . "^\\*Calendar\\*$")
+			   (name . "^diary$")
+			   (mode . muse-mode)))
+	       ("emacs" (or
+			 (name . "^\\*scratch\\*$")
+			 (name . "^\\*Messages\\*$")))
+	       ("gnus" (or
+			(mode . message-mode)
+			(mode . bbdb-mode)
+			(mode . mail-mode)
+			(mode . gnus-group-mode)
+			(mode . gnus-summary-mode)
+			(mode . gnus-article-mode)
+			(name . "^\\.bbdb$")
+			(name . "^\\.newsrc-dribble")))))))
 (add-hook 'ibuffer-mode-hook
-          (lambda ()
-            (ibuffer-switch-to-saved-filter-groups "default")))
+	  (lambda ()
+	    (ibuffer-switch-to-saved-filter-groups "default")))
 
 
 (setq gdb-many-windows t)
@@ -130,15 +130,15 @@
   (setq-default bm-buffer-persistence t)
   (setq bm-cycle-all-buffers t)
   (setq bm-highlight-style
-        (if (and window-system (> emacs-major-version 21))
-            'bm-highlight-only-fringe
-          'bm-highlight-only-line))
+	(if (and window-system (> emacs-major-version 21))
+	    'bm-highlight-only-fringe
+	  'bm-highlight-only-line))
   ;; (add-hook' after-init-hook 'bm-repository-load)
   (add-hook 'find-file-hooks 'bm-buffer-restore)
   (add-hook 'kill-buffer-hook 'bm-buffer-save)
   (add-hook 'kill-emacs-hook '(lambda nil
-                                (bm-buffer-save-all)
-                                (bm-repository-save)))
+				(bm-buffer-save-all)
+				(bm-repository-save)))
   ;; (add-hook 'after-save-hook 'bm-buffer-save)
   ;; (add-hook 'after-revert-hook 'bm-buffer-restore)
   (global-set-key (kbd "<C-f2>") 'bm-toggle)
@@ -150,12 +150,5 @@
   (global-set-key [left-margin mouse-1] 'bm-toggle-mouse)
   (global-set-key [left-margin mouse-3] 'bm-next-mouse)
   )
-
-(when (require 'kill-ring-search nil 'noerror)
-  (global-set-key (kbd "C-c k") 'kill-ring-search)
-  )
-
-(when (require 'browse-kill-ring nil 'noerror)
-  (browse-kill-ring-default-keybindings))
 
 (provide 'plugins)

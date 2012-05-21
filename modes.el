@@ -18,40 +18,6 @@
 (yas/load-directory yas/snippet-dirs)
 
 
-;; semantic
-(require 'cedet)
-(require 'semantic)
-(mapc (lambda (dir)
-	(semantic-add-system-include dir 'c++-mode)
-	(semantic-add-system-include dir 'c-mode))
-     '("/usr/include/gtk-2.0" "/usr/include/gtk-2.0/gtk")
-     )
-
-
-;; hippie-expand
-(setq hippie-expand-try-functions-list '(try-expand-line))
-(global-set-key (kbd "M-/") 'hippie-expand)
-
-
-;; auto-complete
-(require 'auto-complete)
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories (expand-file-name "el-get/auto-complete/dict" dotfiles-dir))
-(ac-config-default)
-(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
-(define-key ac-complete-mode-map "\M-n" 'ac-next)
-(define-key ac-complete-mode-map "\M-p" 'ac-previous)
-(setq ac-auto-show-menu 0.3)
-(setq ac-delay 0.1)
-(setq ac-quick-help-delay 0.3)
-(define-globalized-minor-mode real-global-auto-complete-mode
-  auto-complete-mode (lambda ()
-		       (if (not (minibufferp (current-buffer)))
-			   (auto-complete-mode 1))
-		       ))
-(real-global-auto-complete-mode 1)
-
-
 ;; perl
 (defalias 'perl-mode 'cperl-mode)
 (autoload 'run-perl "inf-perl" "Start perl interactive shell" t)
@@ -114,7 +80,6 @@ g++ -Wall编译"
   (define-key c-mode-base-map [f5] 'smart-compile)
   (define-key c-mode-base-map "\C-m" 'reindent-then-newline-and-indent)
   ;; (define-key c-mode-base-map (kbd "M-/") 'semantic-ia-complete-symbol-menu)
-  (define-key c-mode-base-map (kbd "M-n") 'semantic-ia-complete-symbol-menu)
   (define-key c-mode-base-map [f12] 'semantic-ia-fast-jump)
   (global-set-key [S-f12]
 		  (lambda ()
@@ -129,8 +94,8 @@ g++ -Wall编译"
 			  (setq first (cdr (car (cdr alist)))))
 		      (semantic-mrub-switch-tags first))))
 
-  (semantic-load-enable-code-helpers)
-  (semantic-load-enable-semantic-debugging-helpers)
+  ;; (semantic-load-enable-code-helpers)
+  ;; (semantic-load-enable-semantic-debugging-helpers)
   ;; (define-key semantic-tag-folding-mode-map (kbd "C-c , -") 'semantic-tag-folding-fold-block)
   ;; (define-key semantic-tag-folding-mode-map (kbd "C-c , +") 'semantic-tag-folding-show-block)
   )

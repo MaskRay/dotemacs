@@ -3,6 +3,7 @@
 (setq el-get-sources
       '(
 	auctex
+	auto-complete
 	autopair
 	bookmark+
 	cursor-chg
@@ -17,6 +18,7 @@
 	multi-term
 	org-mode
 	paredit
+	popup
 	second-sel
 	smex
 	twittering-mode

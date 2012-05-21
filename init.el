@@ -7,7 +7,7 @@
 (require 'el-get-sources)
 (add-to-list 'load-path (expand-file-name "site-lisp" dotfiles-dir))
 
-(mapc (lambda (feature) (require feature nil t)) '(prelude-core prelude-programming settings utils plugins registers bindings modes org-config erc-config))
+(mapc (lambda (feature) (require feature nil t)) '(evil-config prelude-core settings utils plugins registers bindings modes completion org-config erc-config))
 (put 'autopair-newline 'disabled nil)
 (put 'scroll-left 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
