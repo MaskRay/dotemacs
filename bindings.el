@@ -93,6 +93,7 @@
   ;; files
   "C-x i" ray-insert-map
   "C-x m" ray-minor-mode-map
+  "C-c q" ray-quick-map
   "C-c o" ray-org-mode-map
   "C-x C-b" 'ibuffer-other-window
   "C-x M-f" 'ido-find-file-other-window

@@ -16,4 +16,32 @@
 (appt-activate 1)
 (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt)
 
+
+(defun cofi/agenda-frame ()
+  (modify-frame-parameters nil
+                           '( (name . "Agenda Frame")
+                              (width . 80)
+                              (height . 15)
+                              (vertical-scroll-bars . nil)
+                              (menu-bar-lines . nil)
+                              (tool-bar-lines . nil)))
+  (if (fboundp 'x-focus-frame)
+      (x-focus-frame nil))
+  (let ((org-agenda-window-setup 'current-window))
+    (org-agenda-list)))
+
+(defun cofi/capture-frame ()
+  (modify-frame-parameters nil
+                           '( (name . "Capture Frame")
+                              (width . 80)
+                              (height . 15)
+                              (vertical-scroll-bars . nil)
+                              (menu-bar-lines . nil)
+                              (tool-bar-lines . nil)))
+  (if (fboundp 'x-focus-frame)
+      (x-focus-frame nil))
+  (org-capture)
+  (linum-mode -1)
+  (delete-other-windows))
+
 (provide 'org-config)

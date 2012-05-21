@@ -10,7 +10,7 @@
   (auto-image-file-mode 1)
   (require 'fonts)
   (window-system-font-setting)
-  (set-frame-parameter nil 'fullscreen 'maximized)
+  ;; (set-frame-parameter nil 'fullscreen 'maximized)
   ;; (require 'color-theme-hober2)
   ;; (color-theme-hober2)
   (require 'zenburn-theme)
