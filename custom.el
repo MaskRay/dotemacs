@@ -24,6 +24,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(bmkp-last-as-first-bookmark-file "/home/ray/.emacs.d/bookmarks")
  '(global-semantic-decoration-mode t nil (semantic-decorate-mode))
  '(global-semantic-highlight-edits-mode nil nil (semantic-util-modes))
  '(global-semantic-highlight-func-mode nil nil (semantic-util-modes))

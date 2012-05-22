@@ -4,10 +4,28 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 
-(require 'remember)
-(setq org-default-notes-file "~/org/todo.org")
-(org-remember-insinuate)
-(setq org-remember-templates (quote (("todo" ?t "* TODO %?\nCREATED: %U" nil nil nil))))
+(require 'org-protocol)
+
+(setq org-default-notes-file (concat org-directory "capture.org"))
+(setq org-capture-templates
+      '(("t" "Todo" entry (file (format "%s/todo.org" org-directory))
+         "* TODO %?\n  %i\n  %a")
+        ("x" "Note with Clipboard" entry (file (format "%s/notes.org" org-directory))
+         "* %?\n  %i\n  %x")
+        ("n" "Note" entry (file (format "%s/notes.org" org-directory))
+         "* %?\n  %i\n  %a")
+        ;; dedicated templates
+        ("s" "Save link for reading" entry (file+headline
+                                            (format "%s/links.org" org-directory)
+                                            "Unsorted")
+         "* %:description\n  %:link\n  %U"
+         )
+        ("c" "Contacts" entry (file (format "%s/contacts.org" org-directory))
+         "* %(org-contacts-template-name)
+:PROPERTIES:
+:EMAIL: %(org-contacts-template-email)
+:END:")
+        ))
 
 (setq
   appt-message-warning-time 15

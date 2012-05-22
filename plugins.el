@@ -1,26 +1,12 @@
-;; (require '.loaddefs nil t)
 ;; (mapc (lambda (feature) (require feature nil t)) '(dired+ workgroups elscreen window-number paredit bookmark+ autopair cursor-chg color-moccur moccur-edit auto-install second-sel paste2 highlight-symbol w3m-load whole-line-or-region browse-kill-ring+ kill-ring-search menu-bar+ rainbow-delimiters))
 (mapc (lambda (feature) (require feature nil t)) '(paredit))
-;; (require 'loaddefs nil t)
+
+(require 'bookmark+ nil 'noerror)
 
 (require 'expand-region nil 'noerror)
 
-(when (require 'drag-stuff nil 'noerror)
-  (drag-stuff-global-mode 1))
-
-(require 'multi-term)
-(setq multi-term-program "/bin/zsh")
-
-(when (require 'workgroups nil 'noerror)
-  (setq wg-prefix-key (kbd "C-l")
-	wg-morph-on nil)
-  (workgroups-mode 1)
-  (setq wg-file (expand-file-name "workgroups" dotfiles-dir)))
-
 (setq show-paren-style 'parenthesis)
 (show-paren-mode 1)
-
-(setq highlight-symbol-idle-delay 0.5)
 
 (when (require 'smex nil 'noerror)
   (smex-initialize))
@@ -40,18 +26,6 @@
       ido-max-prospects 10
       ido-default-file-method 'selected-window)
 
-(when (require 'autopair nil 'noerror)
-  ;; (autopair-global-mode 1)
-  (add-hook 'sldb-mode-hook #' (lambda () (setq autopair-dont-activate t))))
-
-;; (when (require 'cursor-chg nil 'noerror)
-;;   (toggle-cursor-type-when-idle 1)
-;;   (setq curchg-default-cursor-color "green")
-;;   (change-cursor-mode 1))
-
-(when (require 'color-moccur nil 'noerror)
-  (defalias 'occur 'occur-by-moccur))
-
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
 (autoload 'imaxima "imaxima" "Image support for Maxima." t)
@@ -61,22 +35,6 @@
 (setq imaxima-pt-size 12)
 
 
-(autoload 'mew "mew" nil t)
-(autoload 'mew-send "mew" nil t)
-(if (boundp 'read-mail-command)
-    (setq read-mail-command 'mew))
-(autoload 'mew-user-agent-compose "mew" nil t)
-(if (boundp 'mail-user-agent)
-    (setq mail-user-agent 'mew-user-agent))
-(if (fboundp 'define-mail-user-agent)
-    (define-mail-user-agent
-       'mew-user-agent
-       'mew-user-agent-compose
-       'mew-draft-send-message
-       'mew-draft-kill
-       'mew-send-hook))
-
-
 (setq w3m-default-display-inline-images t)
 
 
@@ -84,27 +42,10 @@
 (setq ibuffer-saved-filter-groups
       (quote (("default"
 	       ("dired" (mode . dired-mode))
-	       ("perl" (mode . cperl-mode))
-	       ("erc" (mode . erc-mode))
-	       ("planner" (or
-			   (name . "^\\*Calendar\\*$")
-			   (name . "^diary$")
-			   (mode . muse-mode)))
 	       ("emacs" (or
 			 (name . "^\\*scratch\\*$")
 			 (name . "^\\*Messages\\*$")))
-	       ("gnus" (or
-			(mode . message-mode)
-			(mode . bbdb-mode)
-			(mode . mail-mode)
-			(mode . gnus-group-mode)
-			(mode . gnus-summary-mode)
-			(mode . gnus-article-mode)
-			(name . "^\\.bbdb$")
-			(name . "^\\.newsrc-dribble")))))))
-(add-hook 'ibuffer-mode-hook
-	  (lambda ()
-	    (ibuffer-switch-to-saved-filter-groups "default")))
+	       ))))
 
 
 (setq gdb-many-windows t)
@@ -122,8 +63,6 @@
 					; was dired-up-directory
 	    ))
 
-
-(setq term-unbind-key-list '("C-x" "C-l" "<ESC>"))
 
 (setq bm-restore-repository-on-load t)
 (when (require 'bm nil 'noerror)

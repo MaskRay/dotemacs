@@ -9,16 +9,14 @@
 
 (global-set-key (kbd "C-x k") 'kill-buffer-and-window)
 (global-set-key (kbd "C-x K") (cmd (kill-buffer (current-buffer))))
-(global-set-key (kbd "C-4") 'kill-this-buffer)
+(global-set-key (kbd "C-4") 'kill-buffer-and-window)
 (global-set-key (kbd "C-3") 'split-window-horizontally)
 (global-set-key (kbd "C-2") 'split-window-vertically)
 (global-set-key (kbd "C-1") 'delete-other-windows)
 
 (global-set-key (kbd "C-M-y") 'secondary-dwim)
-;; (global-set-key (kbd "C-c k") 'kill-ring-search)
 (global-set-key (kbd "C-x C-p") 'ffap)
 ;; (global-set-key (kbd "C-c c") (lambda () (interactive) (other-window 1) (eshell)))
-(global-set-key (kbd "C-c c") 'multi-term-dedicated-toggle)
 
 ;; Align your code in a pretty way.
 (global-set-key (kbd "C-x \\") 'align-regexp)
@@ -53,9 +51,6 @@
 (global-set-key (kbd "C-=") 'er/expand-region)
 (global-set-key (kbd "C-c w") (make-repeatable-command 'er/expand-region))
 
-(global-set-key (kbd "C-c n") 'prelude-cleanup-buffer)
-(global-set-key (kbd "C-c f")  'prelude-recentf-ido-find-file)
-(global-set-key (kbd "C-c i") 'prelude-ido-goto-symbol)
 (global-set-key (kbd "C-M-\\") 'prelude-indent-region-or-buffer)
 (global-set-key (kbd "C-c u") 'prelude-view-url)
 (global-set-key (kbd "C-c e") 'prelude-eval-and-replace)
@@ -80,45 +75,45 @@
 (defkeymap ray-insert-map
   "b" 'insert-buffer
   "f" 'insert-file
-  "c" 'clipper-insert)
+  )
 
 (defkeymap ray-org-mode-map
   "a" 'org-agenda-list
   "t" (lambda () (interactive) (org-todo-list 0))
-  "r" 'org-capture
+  "c" 'org-capture
   "l" 'org-store-link
   )
 
 (fill-keymap 'global
-  ;; files
-  "C-x i" ray-insert-map
-  "C-x m" ray-minor-mode-map
-  "C-c q" ray-quick-map
-  "C-c o" ray-org-mode-map
-  "C-x C-b" 'ibuffer-other-window
-  "C-x M-f" 'ido-find-file-other-window
-  "C-x M-b" 'ido-switch-buffer-other-window
-  "C-x M-d" 'dired-other-window
+	     ;; files
+	     "C-x i" ray-insert-map
+	     "C-x m" ray-minor-mode-map
+	     "C-c q" ray-quick-map
+	     "C-c o" ray-org-mode-map
+	     "C-x C-b" 'ibuffer-other-window
+	     "C-x M-f" 'ido-find-file-other-window
+	     "C-x M-b" 'ido-switch-buffer-other-window
+	     "C-x M-d" 'dired-other-window
 
-  ;; search
-  "C-r"     'isearch-backward-regexp
-  "C-s"     'isearch-forward-regexp
-  "M-r"     'query-replace-regexp
-  "M-R"     'query-replace-regexp
+	     ;; search
+	     "C-r"     'isearch-backward-regexp
+	     "C-s"     'isearch-forward-regexp
+	     "M-r"     'query-replace-regexp
+	     "M-R"     'query-replace-regexp
 
-  ;; compilation
-  "M-n"     'next-error
-  "M-p"     'previous-error
+	     ;; compilation
+	     "M-n"     'next-error
+	     "M-p"     'previous-error
 
- ;; home-end
- "<home>" 'home-end-home
- "<end>"  'home-end-end
-  )
+	     ;; home-end
+	     "<home>" 'home-end-home
+	     "<end>"  'home-end-end
+	     )
 
 ;;; quick exit for some modes
 (add-to-hooks (gen-local-fill-keymap-hook
-		  "q" 'quit-window
-		  "Q" 'kill-buffer-and-window)
+	       "q" 'quit-window
+	       "Q" 'kill-buffer-and-window)
 	      '(diff-mode-hook
 		compilation-mode-hook))
 

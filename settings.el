@@ -15,7 +15,6 @@
   ;; (color-theme-hober2)
   (require 'zenburn-theme)
   (enable-theme 'zenburn)
-  ;; (wg-load "~/workgroups")
 )
 (if (and (fboundp 'daemonp) (daemonp))
     (add-hook 'after-make-frame-functions
