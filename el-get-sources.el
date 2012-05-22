@@ -4,27 +4,20 @@
       '(
 	auctex
 	auto-complete
-	autopair
 	bookmark+
-	cursor-chg
 	dired+
-	drag-stuff
 	expand-region
 	fastnav
-	follow-mouse
 	helm
 	highlight-symbol
 	kill-ring-search
 	multi-term
-	org-mode
 	paredit
 	popup
 	second-sel
 	smex
-	twittering-mode
-	;; whole-line-or-region
+	whole-line-or-region
 	window-number
-	workgroups
 	yari
 	yasnippet
 	)

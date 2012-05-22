@@ -6,10 +6,9 @@
 
 /auto-save-list
 /eshell
-/loaddefs.el
 /tramp
-/url
-/workgroups
-/bookmarks
-/desktops
 /image-dired/
+/elpa
+
+/bookmark
+/desktop

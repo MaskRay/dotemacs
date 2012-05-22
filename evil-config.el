@@ -1,13 +1,13 @@
 (require 'undo-tree)
+(require 'evil)
 (require 'evil-numbers)
 (setq evil-find-skip-newlines t
       evil-move-cursor-back nil
       evil-cross-lines t)
+(setq evil-previous-state-alist '())
 (setq evil-default-cursor #'cofi/evil-cursor)
 (setq evil-leader/leader ","
       evil-leader/in-all-states t)
-(require 'evil-leader)
-(require 'evil)
 (require 'cofi-util)
 (require 'cofi-func)
 
@@ -195,6 +195,7 @@ If `end' is nil `begin-or-fun' will be treated as a fun."
       (delete-region (point-at-bol) (point-at-eol)))))
 (add-hook 'evil-insert-state-exit-hook #'cofi/clear-empty-lines)
 
+(require 'evil-leader)
 (evil-leader/set-key
   "e" 'ido-find-file
   "E" 'ido-find-file-other-window

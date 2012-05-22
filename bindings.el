@@ -51,15 +51,6 @@
 (global-set-key (kbd "C-=") 'er/expand-region)
 (global-set-key (kbd "C-c w") (make-repeatable-command 'er/expand-region))
 
-(global-set-key (kbd "C-M-\\") 'prelude-indent-region-or-buffer)
-(global-set-key (kbd "C-c u") 'prelude-view-url)
-(global-set-key (kbd "C-c e") 'prelude-eval-and-replace)
-(global-set-key (kbd "C-c s") 'prelude-swap-windows)
-(global-set-key (kbd "C-c d") 'prelude-duplicate-current-line-or-region)
-(global-set-key (kbd "C-c r") 'prelude-rename-file-and-buffer)
-(global-set-key (kbd "C-c t") 'prelude-visit-term-buffer)
-
-
 (require 'cofi-util)
 (defkeymap ray-minor-mode-map
   "f"  'auto-fill-mode
