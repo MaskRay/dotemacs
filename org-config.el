@@ -14,6 +14,8 @@
          "* %?\n  %i\n  %x")
         ("n" "Note" entry (file (format "%s/notes.org" org-directory))
          "* %?\n  %i\n  %a")
+        ("l" "Literature" entry (file (format "%s/literature.org" org-directory))
+         "* %?\n  %i\n  %a")
         ;; dedicated templates
         ("s" "Save link for reading" entry (file+headline
                                             (format "%s/links.org" org-directory)
@@ -61,5 +63,16 @@
   (org-capture)
   (linum-mode -1)
   (delete-other-windows))
+
+(defun org-mode-reftex-setup ()
+  (load-library "reftex")
+  (and (buffer-file-name)
+       (file-exists-p (buffer-file-name))
+       (reftex-parse-all))
+  (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
+  )
+(add-hook 'org-mode-hook 'org-mode-reftex-setup)
+
+(require 'org-xelatex)
 
 (provide 'org-config)

@@ -60,7 +60,9 @@
   )
 (defkeymap ray-quick-map
   "a" 'align-regexp
+  "d" 'deft
   "s" 'sort-lines
+  "e" 'eshell
   "w" 'count-words-region)
 
 (defkeymap ray-insert-map

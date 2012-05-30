@@ -1,9 +1,3 @@
-;; haskell
-(require 'haskell-config)
-
-;; ruby
-(require 'ruby-config)
-
 ;; eshell
 (defun eshell/clear ()
   (interactive)
@@ -67,10 +61,12 @@ g++ -Wall编译"
 	(let ((command (read-from-minibuffer "Compile command: " command)))
 	  (compile command)))))
 
+(require 'cc-mode)
 (defun my-c-mode-common-hook ()
   (c-set-style "k&r")
   (setq tab-width 4 indent-tabs-mode nil c-basic-offset 4)
   (c-toggle-auto-hungry-state 1)
+  (c-toggle-auto-state -1)
   (c-toggle-electric-state 1)
   (add-to-list 'c-cleanup-list 'brace-else-brace)
   (add-to-list 'c-cleanup-list 'brace-elseif-brace)
@@ -80,7 +76,7 @@ g++ -Wall编译"
   (define-key c-mode-base-map [f5] 'smart-compile)
   (define-key c-mode-base-map "\C-m" 'reindent-then-newline-and-indent)
   ;; (define-key c-mode-base-map (kbd "M-/") 'semantic-ia-complete-symbol-menu)
-  (define-key c-mode-base-map [f12] 'semantic-ia-fast-jump)
+  ;; (define-key c-mode-base-map [f12] 'semantic-ia-fast-jump)
   (global-set-key [S-f12]
 		  (lambda ()
 		    (interactive)
@@ -100,13 +96,6 @@ g++ -Wall编译"
   ;; (define-key semantic-tag-folding-mode-map (kbd "C-c , +") 'semantic-tag-folding-show-block)
   )
 (add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
-
-;; doxymacs
-(autoload 'doxymacs-mode "doxymacs"
-  "Minor mode for using/creating Doxygen documentation." t)
-(autoload 'doxymacs-font-lock "doxymacs"
-  "Turn on font-lock for Doxygen keywords." t)
-(add-hook 'c-mode-common-hook 'doxymacs-mode)
 
 ;; cscope
 (autoload 'xcscope "xcscope" nil t)

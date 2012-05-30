@@ -4,3 +4,9 @@
 [submodule "vendor/helm"]
 	path = vendor/helm
 	url = https://github.com/emacs-helm/helm
+[submodule "vendor/deft"]
+	path = vendor/deft
+	url = git://jblevins.org/git/deft.git
+[submodule "vendor/full-ack"]
+	path = vendor/full-ack
+	url = https://github.com/nschum/full-ack

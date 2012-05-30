@@ -223,6 +223,9 @@
 
 (add-hook 'haskell-mode-hook
 	  '(lambda ()
+	     (require 'hs-lint)
+             (setq hs-lint-replace-with-suggestions t)
+
 	     (auto-complete-mode 1)
 	     (subword-mode 1)
 	     (make-local-variable 'ac-sources)

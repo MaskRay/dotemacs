@@ -26,15 +26,25 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmark")
- '(global-semantic-decoration-mode t nil (semantic-decorate-mode))
- '(global-semantic-highlight-edits-mode nil nil (semantic-util-modes))
- '(global-semantic-highlight-func-mode nil nil (semantic-util-modes))
- '(global-semantic-idle-scheduler-mode t nil (semantic-idle))
- '(global-semantic-mru-bookmark-mode t nil (semantic-util-modes))
- '(global-semantic-show-parser-state-mode t nil (semantic-util-modes))
- '(global-semantic-show-unmatched-syntax-mode nil nil (semantic-util-modes))
- '(global-semantic-stickyfunc-mode nil nil (semantic-util-modes))
- '(global-senator-minor-mode t nil (senator))
- '(safe-local-variable-values (quote ((eval ignore-errors "Write-contents-functions is a buffer-local alternative to before-save-hook" (add-hook (quote write-contents-functions) (lambda nil (delete-trailing-whitespace) nil)) (require (quote whitespace)) "Sometimes the mode needs to be toggled off and on." (whitespace-mode 0) (whitespace-mode 1)) (whitespace-line-column . 80) (whitespace-style face trailing lines-tail) (require-final-newline . t))))
- '(semanticdb-global-mode t nil (semanticdb))
- '(which-function-mode nil))
+ '(safe-local-variable-values (quote ((org-export-latex-preamble . "\\documentclass[ngerman]{article}
+\\usepackage[T1]{fontenc}
+\\usepackage[utf8]{inputenc}
+\\usepackage{verbatim}
+%% No necesito \\url porque uso hyperref (\\href)
+%% \\IfFileExists{url.sty}{\\usepackage{url}}
+%%                       {\\newcommand{\\url}{\\texttt}}
+\\usepackage[authoryear]{natbib}
+\\usepackage{ae}
+
+\\makeatletter
+\\providecommand{\\LyX}{L\\kern-.1667em\\lower.25em\\hbox{Y}\\kern-.125emX\\@}
+
+\\usepackage{bibgerm}
+
+\\usepackage{babel}
+\\makeatother
+
+\\usepackage[breaklinks=true]{hyperref}
+\\usepackage{breakurl}
+\\usepackage{array}
+") (eval ignore-errors "Write-contents-functions is a buffer-local alternative to before-save-hook" (add-hook (quote write-contents-functions) (lambda nil (delete-trailing-whitespace) nil)) (require (quote whitespace)) "Sometimes the mode needs to be toggled off and on." (whitespace-mode 0) (whitespace-mode 1)) (whitespace-line-column . 80) (whitespace-style face trailing lines-tail) (require-final-newline . t)))))

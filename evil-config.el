@@ -80,20 +80,77 @@ If `end' is nil `begin-or-fun' will be treated as a fun."
 
 (require 'ace-jump-mode)
 (fill-keymap evil-normal-state-map
+	     "Y" (kbd "y$")
 	     "+" 'evil-numbers/inc-at-pt
 	     "-" 'evil-numbers/dec-at-pt
 	     "SPC" 'ace-jump-char-mode
 	     "S-SPC" 'ace-jump-word-mode
 	     "C-SPC" 'ace-jump-line-mode
 	     "C-z"   'evil-emacs-state
-	     ":" 'evil-repeat-find-char-reverse)
+	     )
+
+(defun cofi/surround-add-pair (trigger begin-or-fun &optional end)
+  "Add a surround pair.
+If `end' is nil `begin-or-fun' will be treated as a fun."
+  (push (cons (if (stringp trigger)
+		  (string-to-char trigger)
+		trigger)
+	      (if end
+		  (cons begin-or-fun end)
+		begin-or-fun))
+	surround-pairs-alist))
+
+(global-surround-mode 1)
+(add-to-hooks (lambda ()
+		(cofi/surround-add-pair "`" "`" "'"))
+	      '(emacs-lisp-mode-hook lisp-mode-hook))
+(add-to-hooks (lambda ()
+		(cofi/surround-add-pair "~" "``" "``"))
+	      '(markdown-mode-hook rst-mode-hook python-mode-hook))
+(add-hook 'latex-mode (lambda ()
+			(cofi/surround-add-pair "~" "\\texttt{" "}")
+			(cofi/surround-add-pair "=" "\\verb=" "}")
+			(cofi/surround-add-pair "/" "\\emph=" "}")))
+(add-to-hooks (lambda ()
+		(cofi/surround-add-pair "c" ":class:`" "`")
+		(cofi/surround-add-pair "f" ":func:`" "`")
+		(cofi/surround-add-pair "m" ":meth:`" "`")
+		(cofi/surround-add-pair "a" ":attr:`" "`")
+		(cofi/surround-add-pair "e" ":exc:`" "`"))
+	      '(rst-mode-hook python-mode-hook))
+
+(evil-set-toggle-key "<pause>")
+(evil-mode 1)
+
+(loop for (mode . state) in '((inferior-emacs-lisp-mode . emacs)
+			      (pylookup-mode . emacs)
+			      (comint-mode . emacs)
+			      (shell-mode . emacs)
+			      (term-mode . emacs)
+			      (bc-menu-mode . emacs)
+			      (magit-branch-manager-mode-map . emacs)
+			      (rdictcc-buffer-mode . emacs))
+      do (evil-set-initial-state mode state))
+
+(require 'ace-jump-mode)
+(fill-keymap evil-normal-state-map
+	     "+" 'evil-numbers/inc-at-pt
+	     "-" 'evil-numbers/dec-at-pt
+	     "SPC" 'ace-jump-char-mode
+	     "S-SPC" 'ace-jump-word-mode
+	     "C-SPC" 'ace-jump-line-mode
+	     "C-z"   'evil-emacs-state
+	     "C-n"   (lambda () (interactive) (evil-next-buffer))
+	     "C-p"   (lambda () (interactive) (evil-prev-buffer))
+	     )
 
 (fill-keymap evil-motion-state-map
 	     "L" 'end-of-line
 	     "H" 'evil-first-non-blank)
 
 (fill-keymap evil-insert-state-map
-	     "C-h" 'backward-delete-char
+	     "TAB" 'yas/expand
+	     ;; "C-h" 'backward-delete-char
 	     "C-y" 'yank
 	     "C-z" 'evil-emacs-state
 	     "C-a" 'evil-first-non-blank
@@ -111,10 +168,22 @@ If `end' is nil `begin-or-fun' will be treated as a fun."
 	     "C-SPC" 'cofi/ace-jump-char-direct-mode
 	     "S-SPC" 'ace-jump-word-mode)
 
-
-
 (evil-define-key 'normal org-mode-map
   (kbd "RET") 'org-open-at-point
+  "o" (lambda ()
+	(interactive)
+	(end-of-line)
+	(if (not (org-in-item-p))
+	    (insert "\n- ")
+	  (org-insert-item))
+	(evil-append nil)
+	)
+  "O" (lambda ()
+	(interactive)
+	(end-of-line)
+	(org-insert-heading)
+	(evil-append nil)
+	)
   "za" 'org-cycle
   "zA" 'org-shifttab
   "zm" 'hide-body
@@ -123,45 +192,18 @@ If `end' is nil `begin-or-fun' will be treated as a fun."
   "zO" 'show-all
   "zc" 'hide-subtree
   "zC" 'hide-all
-  (kbd "M-j") 'org-shiftleft
-  (kbd "M-k") 'org-shiftright
-  (kbd "M-H") 'org-metaleft
-  (kbd "M-J") 'org-metadown
-  (kbd "M-K") 'org-metaup
-  (kbd "M-L") 'org-metaright)
-
-(evil-define-key 'normal orgstruct-mode-map
-  (kbd "RET") 'org-open-at-point
-  "za" 'org-cycle
-  "zA" 'org-shifttab
-  "zm" 'hide-body
-  "zr" 'show-all
-  "zo" 'show-subtree
-  "zO" 'show-all
-  "zc" 'hide-subtree
-  "zC" 'hide-all
-  (kbd "M-j") 'org-shiftleft
-  (kbd "M-k") 'org-shiftright
-  (kbd "M-H") 'org-metaleft
-  (kbd "M-J") 'org-metadown
-  (kbd "M-K") 'org-metaup
-  (kbd "M-L") 'org-metaright)
-
-(evil-define-key 'insert org-mode-map
-  (kbd "M-j") 'org-shiftleft
-  (kbd "M-k") 'org-shiftright
-  (kbd "M-H") 'org-metaleft
-  (kbd "M-J") 'org-metadown
-  (kbd "M-K") 'org-metaup
-  (kbd "M-L") 'org-metaright)
-
-(evil-define-key 'insert orgstruct-mode-map
-  (kbd "M-j") 'org-shiftleft
-  (kbd "M-k") 'org-shiftright
-  (kbd "M-H") 'org-metaleft
-  (kbd "M-J") 'org-metadown
-  (kbd "M-K") 'org-metaup
-  (kbd "M-L") 'org-metaright)
+  (kbd "H" 'org-shiftleft)
+  (kbd "J" 'org-shiftdown)
+  (kbd "K" 'org-shiftup)
+  (kbd "L" 'org-shiftright)
+  (kbd "M-h" 'org-metaleft)
+  (kbd "M-j") 'org-metadown
+  (kbd "M-k") 'org-metaup
+  (kbd "M-l" 'org-metaright)
+  (kbd "M-H") 'org-shiftmetaleft
+  (kbd "M-J") 'org-shiftmetadown
+  (kbd "M-K") 'org-shiftmetaup
+  (kbd "M-L") 'org-shiftmetaright)
 
 (evil-define-key 'normal rdictcc-permanent-translation-mode
   "j" 'rdictcc-next-line

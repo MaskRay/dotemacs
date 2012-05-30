@@ -1,12 +1,21 @@
 ;; (mapc (lambda (feature) (require feature nil t)) '(dired+ workgroups elscreen window-number paredit bookmark+ autopair cursor-chg color-moccur moccur-edit auto-install second-sel paste2 highlight-symbol w3m-load whole-line-or-region browse-kill-ring+ kill-ring-search menu-bar+ rainbow-delimiters))
 (mapc (lambda (feature) (require feature nil t)) '(paredit))
 
-(require 'bookmark+ nil 'noerror)
+(when (require 'deft nil 'noerror) 
+  (setq
+    deft-extension "org"
+    deft-directory "~/org/deft/"
+    deft-text-mode 'org-mode)
+   )
 
+(require 'full-ack nil 'noerror)
+(require 'bookmark+ nil 'noerror)
+(require 'dired+-autoloads nil 'noerror)
 (require 'expand-region nil 'noerror)
 
 (setq show-paren-style 'parenthesis)
 (show-paren-mode 1)
+
 
 (when (require 'smex nil 'noerror)
   (smex-initialize))
