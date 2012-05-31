@@ -51,6 +51,7 @@
 (global-set-key (kbd "C-=") 'er/expand-region)
 (global-set-key (kbd "C-c w") (make-repeatable-command 'er/expand-region))
 
+(require 'cofi-func)
 (require 'cofi-util)
 (defkeymap ray-minor-mode-map
   "f"  'auto-fill-mode
@@ -61,6 +62,7 @@
 (defkeymap ray-quick-map
   "a" 'align-regexp
   "d" 'deft
+  "g" 'magit-status
   "s" 'sort-lines
   "e" 'eshell
   "w" 'count-words-region)
@@ -84,6 +86,7 @@
 	     "C-c q" ray-quick-map
 	     "C-c o" ray-org-mode-map
 	     "C-x C-b" 'ibuffer-other-window
+	     "C-x f" 'recentf-ido-find-file
 	     "C-x M-f" 'ido-find-file-other-window
 	     "C-x M-b" 'ido-switch-buffer-other-window
 	     "C-x M-d" 'dired-other-window
@@ -93,10 +96,6 @@
 	     "C-s"     'isearch-forward-regexp
 	     "M-r"     'query-replace-regexp
 	     "M-R"     'query-replace-regexp
-
-	     ;; compilation
-	     "M-n"     'next-error
-	     "M-p"     'previous-error
 
 	     ;; home-end
 	     "<home>" 'home-end-home

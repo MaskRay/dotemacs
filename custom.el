@@ -26,6 +26,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmark")
+ '(org-agenda-files (quote ("~/org/todo.org")))
  '(safe-local-variable-values (quote ((org-export-latex-preamble . "\\documentclass[ngerman]{article}
 \\usepackage[T1]{fontenc}
 \\usepackage[utf8]{inputenc}

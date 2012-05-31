@@ -10,3 +10,6 @@
 [submodule "vendor/full-ack"]
 	path = vendor/full-ack
 	url = https://github.com/nschum/full-ack
+[submodule "vendor/calfw"]
+	path = vendor/calfw
+	url = https://github.com/kiwanami/emacs-calfw

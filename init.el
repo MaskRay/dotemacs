@@ -1,8 +1,6 @@
-(setq dotfiles-dir (file-name-directory (or (buffer-file-name) load-file-name)))
-(add-to-list 'load-path dotfiles-dir)
+(add-to-list 'load-path user-emacs-directory)
 
 (require 'package)
-
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 (dolist (package '(
@@ -33,9 +31,9 @@
     (package-install package)))
 
 (dolist (dir '("elpa" "vendor"))
-  (let ((default-directory (expand-file-name dir dotfiles-dir)))
+  (let ((default-directory (expand-file-name dir user-emacs-directory)))
     (normal-top-level-add-subdirs-to-load-path)))
 
-(mapc (lambda (feature) (require feature nil t)) '(evil-config settings utils plugins registers bindings modes completion org-config))
+(mapc (lambda (feature) (require feature nil 'noerror)) '(evil-config settings utils plugins bindings modes completion org-config))
 
-(mapc (lambda (lang) (require lang nil t)) '(haskell-config ruby-config))
+(mapc (lambda (lang) (require lang nil 'noerror)) '(haskell-config ruby-config))

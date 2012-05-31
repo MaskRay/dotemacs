@@ -5,7 +5,6 @@
 ;; auto-complete
 (require 'auto-complete)
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories (expand-file-name "el-get/auto-complete/dict" dotfiles-dir))
 (ac-config-default)
 (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
 (define-key ac-complete-mode-map "\M-n" 'ac-next)

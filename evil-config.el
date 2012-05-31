@@ -192,14 +192,14 @@ If `end' is nil `begin-or-fun' will be treated as a fun."
   "zO" 'show-all
   "zc" 'hide-subtree
   "zC" 'hide-all
-  (kbd "H" 'org-shiftleft)
-  (kbd "J" 'org-shiftdown)
-  (kbd "K" 'org-shiftup)
-  (kbd "L" 'org-shiftright)
-  (kbd "M-h" 'org-metaleft)
+  (kbd "H") 'org-shiftleft
+  (kbd "J") 'org-shiftdown
+  (kbd "K") 'org-shiftup
+  (kbd "L") 'org-shiftright
+  (kbd "M-h") 'org-metaleft
   (kbd "M-j") 'org-metadown
   (kbd "M-k") 'org-metaup
-  (kbd "M-l" 'org-metaright)
+  (kbd "M-l") 'org-metaright
   (kbd "M-H") 'org-shiftmetaleft
   (kbd "M-J") 'org-shiftmetadown
   (kbd "M-K") 'org-shiftmetaup
@@ -308,7 +308,7 @@ If `end' is nil `begin-or-fun' will be treated as a fun."
 
     ;; winner-mode
     "u" 'winner-undo
-    "C-r" 'winner-reod
+    "C-r" 'winner-redo
     ;; shadow rotating in evil-window-map
     "C-R" 'winner-redo)
 
