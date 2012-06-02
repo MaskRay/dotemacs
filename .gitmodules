@@ -13,3 +13,12 @@
 [submodule "vendor/calfw"]
 	path = vendor/calfw
 	url = https://github.com/kiwanami/emacs-calfw
+[submodule "vendor/zencoding"]
+	path = vendor/zencoding
+	url = https://github.com/rooney/zencoding
+[submodule "vendor/nxhtml"]
+	path = vendor/nxhtml
+	url = https://github.com/emacsmirror/nxhtml
+[submodule "vendor/js2-mode"]
+	path = vendor/js2-mode
+	url = https://github.com/mooz/js2-mode

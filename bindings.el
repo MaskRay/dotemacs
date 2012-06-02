@@ -64,7 +64,7 @@
   "d" 'deft
   "g" 'magit-status
   "s" 'sort-lines
-  "e" 'eshell
+  "e" (lambda () (interactive) (other-window 1) (eshell))
   "w" 'count-words-region)
 
 (defkeymap ray-insert-map

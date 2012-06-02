@@ -5,5 +5,5 @@ using namespace std;
 
 int main()
 {
-    $0;
+    $0
 }
