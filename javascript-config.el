@@ -11,4 +11,10 @@
 ;; js-mode
 (setq js-indent-level 2)
 
+(when (require 'coffee-mode nil 'noerror)
+  (setq coffee-tab-width 2)
+  (fill-keymap coffee-mode-map
+	       "C-c C-r" 'coffee-compile-buffer
+	       ))
+
 (provide 'javascript-config)

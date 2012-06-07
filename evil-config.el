@@ -1,5 +1,5 @@
 (require 'undo-tree)
-(require 'evil)
+(require 'evil-autoloads)
 (require 'evil-numbers)
 (setq evil-find-skip-newlines t
       evil-move-cursor-back nil

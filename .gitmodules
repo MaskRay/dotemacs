@@ -22,3 +22,9 @@
 [submodule "vendor/js2-mode"]
 	path = vendor/js2-mode
 	url = https://github.com/mooz/js2-mode
+[submodule "vendor/coffee-mode"]
+	path = vendor/coffee-mode
+	url = https://github.com/defunkt/coffee-mode/
+[submodule "vendor/slim"]
+	path = vendor/slim
+	url = https://github.com/minad/emacs-slim/

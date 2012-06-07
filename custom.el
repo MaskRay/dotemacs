@@ -27,6 +27,7 @@
  ;; If there is more than one, they won't work right.
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmark")
  '(custom-safe-themes (quote ("501caa208affa1145ccbb4b74b6cd66c3091e41c5bb66c677feda9def5eab19c" "c745073c7479e42cc043cba7ec56bebcdfbc53dadda2fcecce6a195383794fb8" default)))
+ '(nxhtml-menu-mode t)
  '(org-agenda-files (quote ("~/org/todo.org")))
  '(safe-local-variable-values (quote ((org-export-latex-preamble . "\\documentclass[ngerman]{article}
 \\usepackage[T1]{fontenc}
